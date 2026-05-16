@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NASA Log Analytics | ETL Pipeline</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Animated Background -->
+    <div class="bg-gradient"></div>
+    <div class="bg-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="orb orb-4"></div>
+    </div>
+    <div class="grid-overlay"></div>
+
+    <main class="container">
+
+        <!-- Header -->
+        <header class="header">
+            <div class="header-badge">ETL FRAMEWORK v2.0</div>
+            <h1 class="title">
+                <span class="title-line1">NASA Log</span>
+                <span class="title-line2">Analytics</span>
+            </h1>
+            <p class="subtitle">Unified Big Data Pipeline &mdash; MapReduce &bull; MongoDB &bull; Hive &bull; Pig</p>
+            <div class="title-underline"></div>
+        </header>
+
+        <!-- Control Panel Card -->
+        <div class="panel">
+            <div class="panel-header">
+                <div class="panel-dots">
+                    <span class="dot dot-red"></span>
+                    <span class="dot dot-yellow"></span>
+                    <span class="dot dot-green"></span>
+                </div>
+                <span class="panel-title">Pipeline Control Panel</span>
+                <div class="panel-status">
+                    <span class="status-dot"></span> Online
+                </div>
+            </div>
+
+            <form id="pipelineForm" class="form">
+
+                <!-- Pipeline Selector -->
+                <div class="form-group">
+                    <label class="form-label">Select Pipeline Engine</label>
+                    <p class="form-hint">Choose exactly one processing system</p>
+                    <div class="pipeline-grid">
+                        <label class="pipeline-chip" data-value="MapReduce" style="--chip-color: #f97316;">
+                            <input type="radio" name="pipelineEngine" value="MapReduce">
+                            <div class="chip-inner">
+                                <span class="chip-icon">⚡</span>
+                                <span class="chip-name">MapReduce</span>
+                            </div>
+                        </label>
+                        <label class="pipeline-chip" data-value="MongoDB" style="--chip-color: #22c55e;">
+                            <input type="radio" name="pipelineEngine" value="MongoDB">
+                            <div class="chip-inner">
+                                <span class="chip-icon">🍃</span>
+                                <span class="chip-name">MongoDB</span>
+                            </div>
+                        </label>
+                        <label class="pipeline-chip" data-value="Hive" style="--chip-color: #eab308;">
+                            <input type="radio" name="pipelineEngine" value="Hive">
+                            <div class="chip-inner">
+                                <span class="chip-icon">🐝</span>
+                                <span class="chip-name">Hive</span>
+                            </div>
+                        </label>
+                        <label class="pipeline-chip" data-value="Pig" style="--chip-color: #ec4899;">
+                            <input type="radio" name="pipelineEngine" value="Pig">
+                            <div class="chip-inner">
+                                <span class="chip-icon">🐷</span>
+                                <span class="chip-name">Pig</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Dataset Mode Toggle -->
+                <div class="form-group">
+                    <label class="form-label">Dataset Input Mode</label>
+                    <div class="toggle-wrapper">
+                        <button type="button" class="toggle-btn active" id="togglePresplit" data-mode="pre_split">
+                            📦 Pre-split Dataset
+                        </button>
+                        <button type="button" class="toggle-btn" id="toggleCustom" data-mode="custom">
+                            🗂️ Custom Upload
+                        </button>
+                    </div>
+                    <input type="hidden" id="datasetModeInput" name="datasetMode" value="pre_split">
+                </div>
+
+                <!-- Pre-split Section -->
+                <div id="preSplitSection" class="mode-section">
+                    <div class="form-group">
+                        <label class="form-label" for="datasetName">Available Datasets</label>
+                        <div class="select-wrapper">
+                            <select id="datasetName" name="datasetName">
+                                <option value="" disabled selected>Loading datasets...</option>
+                            </select>
+                            <span class="select-arrow">▾</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Custom Upload Section -->
+                <div id="customFileSection" class="mode-section fade-hidden">
+
+                    <div class="form-group">
+                        <label class="form-label" for="batchSize">Batch Size</label>
+                        <div class="input-wrapper">
+                            <span class="input-prefix">#</span>
+                            <input type="number" id="batchSize" name="batchSize" placeholder="e.g., 10000" min="1">
+                        </div>
+                        <p class="form-hint">Number of records per batch chunk</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Upload Raw Log File</label>
+                        <div class="drop-zone" id="fileDropArea">
+                            <div class="drop-icon">☁️</div>
+                            <p class="drop-title">Drag & Drop your <code>.txt</code> log file</p>
+                            <p class="drop-sub">or click to browse</p>
+                            <div class="drop-badge" id="dropBadge">No file selected</div>
+                            <input type="file" id="logfile" name="logfile" accept=".txt">
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="run-btn" id="submitBtn">
+                    <span class="run-btn-text" id="btnText">
+                        <span class="run-btn-icon">▶</span> Run Pipeline
+                    </span>
+                    <div class="run-btn-loader hidden" id="loader"></div>
+                    <div class="run-btn-glow"></div>
+                </button>
+
+            </form>
+        </div>
+
+        <!-- Historical Analysis Library -->
+        <div class="panel history-panel">
+            <div class="panel-header">
+                <span class="panel-title">📚 Historical Analysis Library</span>
+                <button class="refresh-btn" id="refreshHistory">↻ Refresh</button>
+            </div>
+            <div class="history-container">
+                <div class="history-list" id="historyList">
+                    <div class="history-empty">Loading history...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Panel -->
+        <div class="results-panel hidden" id="resultsPanel">
+            <div class="results-header">
+                <h2>🎉 Pipeline Finished</h2>
+                <div class="header-actions">
+                    <button class="action-btn" id="btnViewAnalysis">📊 View Analysis</button>
+                    <button class="action-btn secondary" id="btnReset">🔄 Run New</button>
+                </div>
+            </div>
+            <div class="results-grid" id="resultContent">
+                <!-- Status metrics injected via JS -->
+            </div>
+            
+            <!-- Analysis Modal will be triggered instead of inline chart -->
+        </div>
+
+
+    </main>
+
+    <!-- Analysis Modal -->
+    <div id="analysisModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <button class="modal-close" id="closeModalBtn">&times;</button>
+            
+            <div class="modal-header">
+                <h2>Advanced Pipeline Analytics</h2>
+                <p>Select a metric to visualize performance and quality comparisons.</p>
+            </div>
+            
+            <div class="modal-sidebar-layout">
+                <!-- Sidebar Nav -->
+                <div class="modal-nav">
+                    <button class="nav-btn active" data-chart="quality">
+                        <span class="nav-icon">🥧</span> 
+                        <div class="nav-text">
+                            <div class="nav-title">Compare Data Quality</div>
+                            <div class="nav-desc">Valid vs. malformed record ratios</div>
+                        </div>
+                    </button>
+                    <button class="nav-btn" data-chart="pipeline">
+                        <span class="nav-icon">📊</span> 
+                        <div class="nav-text">
+                            <div class="nav-title">Compare Pipeline Total Execution Times</div>
+                            <div class="nav-desc">Overall runtimes of MapReduce vs MongoDB vs Hive vs Pig</div>
+                        </div>
+                    </button>
+                    <button class="nav-btn" data-chart="batch">
+                        <span class="nav-icon">📈</span> 
+                        <div class="nav-text">
+                            <div class="nav-title">Compare Batch-Wise Timings</div>
+                            <div class="nav-desc">Performance trends across sequential dataset chunks</div>
+                        </div>
+                    </button>
+                    <button class="nav-btn" data-chart="batchImpact">
+                        <span class="nav-icon">⚡</span> 
+                        <div class="nav-text">
+                            <div class="nav-title">Compare Batch Size Impact</div>
+                            <div class="nav-desc">Throughput and speed tradeoffs across batch configurations</div>
+                        </div>
+                    </button>
+                    <button class="nav-btn" data-chart="queryTotal">
+                        <span class="nav-icon">⏱️</span> 
+                        <div class="nav-text">
+                            <div class="nav-title">Compare Query Timings</div>
+                            <div class="nav-desc">Execution times for Queries 1, 2, and 3 internally</div>
+                        </div>
+                    </button>
+                    <button class="nav-btn" data-chart="crossPipeline">
+                        <span class="nav-icon">🔬</span> 
+                        <div class="nav-text">
+                            <div class="nav-title">Compare Cross-Pipeline Query Timings</div>
+                            <div class="nav-desc">Query-by-query speed comparison across all engines</div>
+                        </div>
+                    </button>
+                </div>
+                
+                <!-- Chart Display Area -->
+                <div class="modal-body">
+                    <div class="chart-viewer">
+                        <div id="chartLoader" class="chart-loader hidden">
+                            <div class="spinner"></div>
+                        </div>
+                        <img id="modalChartImg" src="" alt="Analysis Chart">
+                        <img id="modalChartImg2" src="" alt="Analysis Chart 2" class="hidden">
+                        <img id="modalChartImg3" src="" alt="Analysis Chart 3" class="hidden">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

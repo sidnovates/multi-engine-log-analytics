@@ -1,0 +1,39 @@
+common/Dataset
+
+
+/analysis/graphs/BatchSizeAnalyzer/*.png
+/analysis/graphs/DataQuality/*.png
+/analysis/graphs/PipelineComparisonAnalyzer/*.png
+/analysis/graphs/QueryTimingAnalyzer/*.png
+
+/Query*/MR/*.jar
+.env
+.env.docker
+
+/frontend/node_modules/*
+# Java/Maven
+/target/
+*.class
+*.jar
+*.war
+*.ear
+
+# Node
+/frontend/node_modules/
+/frontend/uploads/
+
+# Runtime/queue files
+/.pipeline_queue
+/.pipeline_status
+/.latest_execution_id
+
+# Logs
+*.log
+
+# OS/IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+.env

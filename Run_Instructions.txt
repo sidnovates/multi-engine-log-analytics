@@ -1,0 +1,44 @@
+Individual File Run Instructions
+
+HADOOP -
+Go to Root(Project) Directory:
+
+Q1:
+javac -classpath `hadoop classpath` -d . Project/common/Parsing/*.java Project/Query1/MR/DailyTrafficMR.java
+
+jar -cvf Project/Query1/MR/DailyTrafficMR.jar Project
+
+hadoop jar Project/Query1/MR/DailyTrafficMR.jar Project.Query1.MR.DailyTrafficMR /Project/test.txt /Project/output
+
+Q2:
+javac -classpath `hadoop classpath` -d . Project/common/Parsing/*.java Project/Query2/MR/TopResourcesMR.java
+
+jar -cvf Project/Query2/MR/TopResourcesMR.jar Project
+
+hadoop jar Project/Query2/MR/TopResourcesMR.jar Project.Query2.MR.TopResourcesMR /Project/test.txt /Project/output2
+
+Q3:
+javac -classpath `hadoop classpath` -d . Project/common/Parsing/*.java Project/Query3/MR/HourlyErrorMR.java
+
+jar -cvf Project/Query3/MR/HourlyErrorMR.jar Project
+
+hadoop jar Project/Query3/MR/HourlyErrorMR.jar Project.Query3.MR.HourlyErrorMR /Project/test.txt /Project/output3
+
+MONGODB-
+
+Checking mongosh working : First turn the server on and then check
+~/MongoDB_Project/mongodb-linux-x86_64-ubuntu2204-8.0.6$ ./bin/mongod --dbpath ~/db
+
+~/Hadoop_Project$ 
+
+Q1:
+mvn clean compile
+mvn exec:java -Dexec.mainClass="Project.Query1.MongoDB.Q1Mongo" -Dexec.args="Project/common/test.txt"
+
+Q2:
+mvn clean compile
+mvn exec:java -Dexec.mainClass="Project.Query2.MongoDB.Q2Mongo" -Dexec.args="Project/common/test.txt"
+
+Q3:
+mvn clean compile
+mvn exec:java -Dexec.mainClass="Project.Query3.MongoDB.Q3Mongo" -Dexec.args="Project/common/test.txt"
