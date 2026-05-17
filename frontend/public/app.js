@@ -320,15 +320,14 @@ document.addEventListener('DOMContentLoaded', () => {
         else if (type === 'batch') src = `/graphs/Performance/batch_comparison_${id}.png`;
         else if (type === 'crossPipeline') src = `/graphs/Performance/pipeline_comparison_${ds}.png`;
         else if (type === 'batchImpact') {
-            src = `/graphs/BatchSizeAnalyzer/batch_size_throughput_${baseDs}.png`;
-            src2 = `/graphs/BatchSizeAnalyzer/batch_size_runtime_${baseDs}.png`;
-            src3 = `/graphs/BatchSizeAnalyzer/batch_size_avgtime_${baseDs}.png`;
+            src = `/graphs/BatchSizeAnalyzer/batch_size_runtime_${baseDs}.png`;
+            src2 = `/graphs/BatchSizeAnalyzer/batch_size_avgtime_${baseDs}.png`;
         }
 
         modalChartImg.src = src + `?t=${Date.now()}`;
         
         let loadedCount = 0;
-        const targetCount = type === 'batchImpact' ? 3 : 1;
+        const targetCount = type === 'batchImpact' ? 2 : 1;
         
         modalChartImg.onload = () => {
             loadedCount++;
@@ -342,19 +341,13 @@ document.addEventListener('DOMContentLoaded', () => {
             else showToast('Run this dataset with different batch sizes to unlock this analysis!');
         };
         
-        if (type === 'batchImpact' && modalChartImg2 && modalChartImg3) {
+        if (type === 'batchImpact' && modalChartImg2) {
             modalChartImg2.src = src2 + `?t=${Date.now()}`;
-            modalChartImg3.src = src3 + `?t=${Date.now()}`;
             
             modalChartImg2.onload = () => {
                 loadedCount++;
                 if (loadedCount === targetCount) chartLoader.classList.add('hidden');
                 modalChartImg2.classList.remove('hidden');
-            };
-            modalChartImg3.onload = () => {
-                loadedCount++;
-                if (loadedCount === targetCount) chartLoader.classList.add('hidden');
-                modalChartImg3.classList.remove('hidden');
             };
         }
     }

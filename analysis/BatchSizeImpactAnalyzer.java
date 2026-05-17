@@ -58,7 +58,6 @@ public class BatchSizeImpactAnalyzer {
             System.out.println("Generating Batch Size Impact Analysis for base dataset: " + baseName + " using " + engineName.toUpperCase());
 
             generateRuntimeGraph(conn, likePattern, engineName, baseName, executionId);
-            generateThroughputGraph(conn, likePattern, engineName, baseName, executionId);
             generateAvgBatchTimeGraph(conn, likePattern, engineName, baseName, executionId);
 
             System.out.println("Batch Size Impact Graphs generated successfully in " + GRAPH_DIR);
@@ -89,7 +88,7 @@ public class BatchSizeImpactAnalyzer {
 
             while (rs.next()) {
                 String dsName = rs.getString("dataset_name");
-                double time = rs.getDouble("avg_runtime");
+                double time = rs.getDouble("total_runtime");
                 try {
                     int batchSize = Integer.parseInt(dsName.substring(dsName.lastIndexOf('_') + 1));
                     sortedData.put(batchSize, time);
@@ -108,59 +107,18 @@ public class BatchSizeImpactAnalyzer {
         }
     }
 
-    private static void generateThroughputGraph(Connection conn, String likePattern, String engineName, String baseName, int executionId) throws SQLException {
-        String sql = "SELECT DISTINCT ON (dataset_name) dataset_name, throughput " +
-                     "FROM (" +
-                     "  SELECT dataset_name, (total_record_count / NULLIF(total_runtime, 0)) as throughput, execution_timestamp, run_id " +
-                     "  FROM run_metadata WHERE run_id = ?" +
-                     "  UNION ALL " +
-                     "  SELECT dataset_name, (total_record_count / NULLIF(total_runtime, 0)) as throughput, execution_timestamp, run_id " +
-                     "  FROM run_metadata " +
-                     "  WHERE dataset_name LIKE ? AND pipeline_name = ? AND run_id != ? " +
-                     "    AND total_runtime > 0 AND total_record_count > 1000" +
-                     ") sub " +
-                     "ORDER BY dataset_name, (run_id = ?) DESC, execution_timestamp DESC";
 
-        TreeMap<Integer, Double> sortedData = new TreeMap<>();
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, executionId);
-            pstmt.setString(2, likePattern);
-            pstmt.setString(3, engineName.toLowerCase());
-            pstmt.setInt(4, executionId);
-            pstmt.setInt(5, executionId);
-            ResultSet rs = pstmt.executeQuery();
-
-            while (rs.next()) {
-                String dsName = rs.getString("dataset_name");
-                double throughput = rs.getDouble("throughput");
-                try {
-                    int batchSize = Integer.parseInt(dsName.substring(dsName.lastIndexOf('_') + 1));
-                    sortedData.put(batchSize, throughput);
-                } catch (Exception e) {
-                    continue;
-                }
-            }
-        }
-        
-        if (!sortedData.isEmpty()) {
-            DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-            for (Map.Entry<Integer, Double> entry : sortedData.entrySet()) {
-                dataset.addValue(entry.getValue(), "Throughput", String.valueOf(entry.getKey()));
-            }
-            saveBarChart(dataset, "Batch Size vs Throughput", "Target Batch Size", "Throughput (Records/sec)", "batch_size_throughput_" + baseName.replace("/", "_") + ".png");
-        }
-    }
 
     private static void generateAvgBatchTimeGraph(Connection conn, String likePattern, String engineName, String baseName, int executionId) throws SQLException {
         String sql = "SELECT DISTINCT ON (dataset_name) dataset_name, avg_batch_time " +
                      "FROM (" +
-                     "  SELECT rm.dataset_name, bm.batch_runtime as avg_batch_time, rm.execution_timestamp, rm.run_id " +
-                     "  FROM run_metadata rm JOIN batch_metadata bm ON rm.run_id = bm.run_id WHERE rm.run_id = ?" +
+                     "  SELECT dataset_name, (SELECT AVG(batch_runtime) FROM batch_metadata WHERE run_id = rm.run_id) as avg_batch_time, execution_timestamp, run_id " +
+                     "  FROM run_metadata rm WHERE run_id = ?" +
                      "  UNION ALL " +
-                     "  SELECT rm.dataset_name, bm.batch_runtime as avg_batch_time, rm.execution_timestamp, rm.run_id " +
-                     "  FROM run_metadata rm JOIN batch_metadata bm ON rm.run_id = bm.run_id " +
-                     "  WHERE rm.dataset_name LIKE ? AND rm.pipeline_name = ? AND rm.run_id != ? " +
-                     "    AND rm.total_runtime > 0 AND rm.total_record_count > 1000" +
+                     "  SELECT dataset_name, (SELECT AVG(batch_runtime) FROM batch_metadata WHERE run_id = rm.run_id) as avg_batch_time, execution_timestamp, run_id " +
+                     "  FROM run_metadata rm " +
+                     "  WHERE dataset_name LIKE ? AND pipeline_name = ? AND run_id != ? " +
+                     "    AND total_runtime > 0 AND total_record_count > 1000" +
                      ") sub " +
                      "ORDER BY dataset_name, (run_id = ?) DESC, execution_timestamp DESC";
 
@@ -225,6 +183,11 @@ public class BatchSizeImpactAnalyzer {
             renderer.setSeriesPaint(0, new Color(79, 70, 229)); // Modern indigo
             renderer.setSeriesShapesVisible(0, true); // Show data dots
             renderer.setUseSeriesOffset(false);
+
+            // Show values at the data points
+            renderer.setDefaultItemLabelsVisible(true);
+            renderer.setDefaultItemLabelGenerator(new StandardCategoryItemLabelGenerator());
+            renderer.setDefaultItemLabelFont(new Font("SansSerif", Font.BOLD, 12));
         }
         
         // Style bars if it's a bar chart
