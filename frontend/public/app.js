@@ -315,6 +315,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const baseDs = ds.includes('_') ? ds.substring(0, ds.lastIndexOf('_')) : ds;
 
         if (type === 'quality') src = `/graphs/DataQuality/quality_chart_${id}.png`;
+        else if (type === 'validation') src = `/graphs/Validation/validation_chart_${id}.png`;
         else if (type === 'pipeline') src = `/graphs/PipelineComparison/runtime_comparison_${id}.png`;
         else if (type === 'queryTotal') src = `/graphs/Performance/query_comparison_${id}.png`;
         else if (type === 'batch') src = `/graphs/Performance/batch_comparison_${id}.png`;

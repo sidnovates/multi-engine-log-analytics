@@ -32,6 +32,10 @@ public class MasterAnalyzer {
         System.out.println("\n[STEP 4] Running Batch Size Impact Analysis...");
         BatchSizeImpactAnalyzer.analyzeBatchImpact(executionId);
 
+        // 5. Data Integrity Validation Analysis
+        System.out.println("\n[STEP 5] Running Data Integrity Validation Analysis...");
+        QueryResultAnalyzer.analyzeRun(executionId);
+
         System.out.println("\n======================================================================");
         System.out.println("                   ALL ANALYSES COMPLETED SUCCESSFULLY                ");
         System.out.println("======================================================================");

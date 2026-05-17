@@ -5,6 +5,7 @@ common/Dataset
 /analysis/graphs/DataQuality/*.png
 /analysis/graphs/PipelineComparison/*.png
 /analysis/graphs/Performance/*.png
+/analysis/graphs/Validation/*.png
 
 /Query*/MR/*.jar
 .env
