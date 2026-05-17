@@ -99,6 +99,11 @@ public class PipelineRunner_V2 {
             runCommand("jar -cf Query1/MR/DailyTrafficMR_V2.jar common/Parsing/*.class common/sql/*.class Query1/MR/*.class");
             runCommand("jar -cf Query2/MR/TopResourcesMR_V2.jar common/Parsing/*.class common/sql/*.class Query2/MR/*.class");
             runCommand("jar -cf Query3/MR/HourlyErrorMR_V2.jar common/Parsing/*.class common/sql/*.class Query3/MR/*.class");
+        } else if (engineName.equalsIgnoreCase("Pig")) {
+            System.out.println("\n--- Pre-compiling Pig UDF JAR ---");
+            runCommand("mkdir -p /tmp/pig_udf_classes");
+            runCommand("javac -classpath \"$(cat .classpath):`hadoop classpath`\" -d /tmp/pig_udf_classes common/Parsing/*.java Pig/UDF/LogParserPigUDF.java");
+            runCommand("jar -cf Pig/UDF/logparser-udf.jar -C /tmp/pig_udf_classes .");
         }
 
         // 4. Load Batches
@@ -199,6 +204,12 @@ public class PipelineRunner_V2 {
             } else if (engineName.equalsIgnoreCase("MongoDB")) {
                 System.out.println("Running Phase 1: MongoDB Raw Text Ingestion (Native JVM)...");
                 common.MongoDB.DataIngestionMongo.run(batchFile.getPath(), runId);
+            } else if (engineName.equalsIgnoreCase("Pig")) {
+                System.out.println("Running Phase 1: Pig TSV Ingestion (Native JVM)...");
+                try {
+                    common.PIG.DataIngestionPig.run(batchFile.getPath(), runId);
+                    queryInputPath = "/user/nasa_etl/pig_parsed/batch_" + runId;
+                } catch (Exception e) { e.printStackTrace(); }
             }
 
             // Execute All Queries (1, 2, and 3)
@@ -210,6 +221,13 @@ public class PipelineRunner_V2 {
                     if (q == 1) Query1.MongoDB.Q1Mongo_V2.run(runId);
                     else if (q == 2) Query2.MongoDB.Q2Mongo_V2.run(runId);
                     else if (q == 3) Query3.MongoDB.Q3Mongo_V2.run(runId);
+                } else if (engineName.equalsIgnoreCase("Pig")) {
+                    System.out.println("Executing Query " + q + " (Pig V2 Phase 2 natively)...");
+                    try {
+                        if (q == 1) Query1.PIG.Q1Pig_V2.run(queryInputPath, runId);
+                        else if (q == 2) Query2.PIG.Q2Pig_V2.run(queryInputPath, runId);
+                        else if (q == 3) Query3.PIG.Q3Pig_V2.run(queryInputPath, runId);
+                    } catch (Exception e) { e.printStackTrace(); }
                 } else {
                     runQuery(q, engineName, classSuffix, queryInputPath, runId);
                 }
@@ -219,10 +237,13 @@ public class PipelineRunner_V2 {
                 MetadataDAO.saveQueryMetadata(runId, batchNo, q, qDuration);
             }
             
-            // 🔹 CLEANUP: Delete TSV directory after all MR queries are done
+            // 🔹 CLEANUP: Delete TSV directory after all queries are done
             if (engineName.equalsIgnoreCase("MR") && tsvOutputDir != null) {
                 System.out.println("Cleaning up parsed TSV directory: " + tsvOutputDir);
                 runCommand("rm -rf " + tsvOutputDir); // Clean up local file system (using local file path semantics of MR)
+            } else if (engineName.equalsIgnoreCase("Pig")) {
+                System.out.println("Cleaning up parsed HDFS TSV directory for Pig...");
+                runCommand("hadoop fs -rm -r -skipTrash " + queryInputPath);
             }
             
             long batchEnd = System.currentTimeMillis();

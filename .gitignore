@@ -3,8 +3,8 @@ common/Dataset
 
 /analysis/graphs/BatchSizeAnalyzer/*.png
 /analysis/graphs/DataQuality/*.png
-/analysis/graphs/PipelineComparisonAnalyzer/*.png
-/analysis/graphs/QueryTimingAnalyzer/*.png
+/analysis/graphs/PipelineComparison/*.png
+/analysis/graphs/Performance/*.png
 
 /Query*/MR/*.jar
 .env

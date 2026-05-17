@@ -8,11 +8,10 @@ import java.util.List;
 public class RunHistoryProvider {
 
     public static void main(String[] args) {
-        String sql = "SELECT DISTINCT ON (dataset_name, pipeline_name) " +
-                     "run_id, pipeline_name, dataset_name, execution_timestamp " +
+        String sql = "SELECT run_id, pipeline_name, dataset_name, execution_timestamp " +
                      "FROM run_metadata " +
                      "WHERE total_runtime > 0 " + // Only show completed runs
-                     "ORDER BY dataset_name, pipeline_name, execution_timestamp DESC";
+                     "ORDER BY execution_timestamp DESC";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql);
