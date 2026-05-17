@@ -27,6 +27,23 @@ public class DataIngestionHive {
 
         // ── STEP 1: Upload batch file to HDFS ────────────────────────────────
         Configuration conf = new Configuration();
+        String hadoopConfDir = System.getenv("HADOOP_CONF_DIR");
+        if (hadoopConfDir == null) {
+            String hadoopHome = System.getenv("HADOOP_HOME");
+            if (hadoopHome != null) {
+                hadoopConfDir = hadoopHome + "/etc/hadoop";
+            } else {
+                hadoopConfDir = "../hadoop/etc/hadoop";
+            }
+        }
+        File coreSite = new File(hadoopConfDir, "core-site.xml");
+        File hdfsSite = new File(hadoopConfDir, "hdfs-site.xml");
+        if (coreSite.exists()) {
+            conf.addResource(new Path(coreSite.getAbsolutePath()));
+        }
+        if (hdfsSite.exists()) {
+            conf.addResource(new Path(hdfsSite.getAbsolutePath()));
+        }
         FileSystem    fs   = FileSystem.get(conf);
 
         String hdfsInputDir  = HDFS_BASE + "/hive_input/raw_"  + batchFile.getName();

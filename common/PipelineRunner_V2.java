@@ -122,6 +122,11 @@ public class PipelineRunner_V2 {
             runCommand("mkdir -p /tmp/hive_udf_classes");
             runCommand("javac -classpath \"`hadoop classpath`:" + hiveExec + "\" -d /tmp/hive_udf_classes common/Parsing/*.java Hive/UDF/LogParserUDF.java");
             runCommand("jar -cf Hive/UDF/logparser-udf.jar -C /tmp/hive_udf_classes .");
+            if (hiveLibDir.exists() && hiveLibDir.isDirectory()) {
+                File targetJar = new File(hiveLibDir, "logparser-udf.jar");
+                System.out.println("Auto-deploying Hive UDF JAR to: " + targetJar.getAbsolutePath());
+                runCommand("cp Hive/UDF/logparser-udf.jar " + targetJar.getAbsolutePath());
+            }
         }
 
         // 4. Load Batches

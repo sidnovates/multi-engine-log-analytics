@@ -1,4 +1,6 @@
 -- Parameters: input_dir, output_dir
+SET hive.exec.mode.local.auto=false;
+SET mapreduce.task.io.sort.mb=32;
 DROP TABLE IF EXISTS parsed_logs;
 CREATE EXTERNAL TABLE parsed_logs (
     host STRING,

@@ -1,4 +1,6 @@
 -- Parameters: input_dir, output_dir, udf_jar
+SET hive.exec.mode.local.auto=false;
+SET mapreduce.task.io.sort.mb=32;
 ADD JAR ${hivevar:udf_jar};
 CREATE TEMPORARY FUNCTION parse_log AS 'Hive.UDF.LogParserUDF';
 
