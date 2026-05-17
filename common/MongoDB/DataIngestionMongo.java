@@ -32,8 +32,16 @@ public class DataIngestionMongo {
             String line;
             List<Document> batchDocs = new ArrayList<>();
 
-            // FAST DUMP: Zero Java regex parsing, purely throwing strings into Mongo
+            long totalRecords = 0;
+            long malformedCount = 0;
+
+            // FAST DUMP: Parse through Java to get exact malformed count, but push raw string to Mongo
             while ((line = br.readLine()) != null) {
+                totalRecords++;
+                if (common.Parsing.LogParser.parse(line) == null) {
+                    malformedCount++;
+                }
+                
                 batchDocs.add(new Document("raw_line", line));
                 if (batchDocs.size() >= 50000) {
                     collection.insertMany(batchDocs);
@@ -44,12 +52,6 @@ public class DataIngestionMongo {
                 collection.insertMany(batchDocs);
             }
             br.close();
-
-            // MALFORMED COUNT: Let MongoDB quickly scan and count which lines fail the pattern
-            long totalRecords = collection.countDocuments();
-            Document regexQuery = new Document("raw_line", new Document("$regex", REGEX_PATTERN));
-            long validRecords = collection.countDocuments(regexQuery);
-            long malformedCount = totalRecords - validRecords;
 
             // Instantly update the SQL database
             MetadataDAO.updateFinalStats(runId, 0.0, malformedCount, 0);

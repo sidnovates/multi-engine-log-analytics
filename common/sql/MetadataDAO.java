@@ -72,7 +72,7 @@ public class MetadataDAO {
      * Updates the final totals for the entire pipeline run.
      */
     public static void updateFinalStats(int runId, double totalRuntimeSec, long totalMalformed, long totalRecords) {
-        String sql = "UPDATE run_metadata SET total_runtime = total_runtime + ?, total_malformed_record_count = GREATEST(total_malformed_record_count, ?), total_record_count = total_record_count + ? WHERE run_id = ?";
+        String sql = "UPDATE run_metadata SET total_runtime = total_runtime + ?, total_malformed_record_count = total_malformed_record_count + ?, total_record_count = total_record_count + ? WHERE run_id = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {

@@ -341,7 +341,7 @@ public class PipelineRunner_V2 {
 
         System.out.println("Executing Data Ingestion (MapReduce V2 Phase 1)...");
 
-        runCommand("hadoop jar " + jarPath + " " + mainClass + " " + absInputPath + " " + absOutputPath + " " + runId);
+        runCommand("export HADOOP_CLASSPATH=$(find $HOME/.m2 -name 'postgresql-*.jar' 2>/dev/null | head -1) && hadoop jar " + jarPath + " " + mainClass + " " + absInputPath + " " + absOutputPath + " " + runId);
     }
 
     // 🔹 MODIFIED MR QUERY METHOD to use _V2 Classes and TSV input
