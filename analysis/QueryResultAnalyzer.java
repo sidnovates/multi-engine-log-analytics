@@ -185,6 +185,7 @@ public class QueryResultAnalyzer {
     private static int[] getLatestSuccessfulRun(String datasetName, String engine) {
         String sql = "SELECT run_id FROM run_metadata " +
                      "WHERE dataset_name = ? AND pipeline_name = ? AND total_runtime > 0 " +
+                     "AND total_malformed_record_count < total_record_count " +
                      "ORDER BY execution_timestamp DESC LIMIT 1";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {

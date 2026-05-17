@@ -359,7 +359,7 @@ public class PipelineRunner_V2 {
         System.out.println("Executing Query " + queryNum + " (MapReduce V2 Phase 2)...");
 
         // 3. Run Hadoop
-        runCommand("hadoop jar " + jarPath + " " + mainClass + " " + absInputPath + " " + absOutputPath + " " + runId);
+        runCommand("export HADOOP_CLASSPATH=$(find $HOME/.m2 -name 'postgresql-*.jar' 2>/dev/null | head -1) && hadoop jar " + jarPath + " " + mainClass + " " + absInputPath + " " + absOutputPath + " " + runId);
     }
 
     private static void runCommand(String command) {
