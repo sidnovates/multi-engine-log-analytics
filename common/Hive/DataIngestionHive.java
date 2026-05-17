@@ -10,7 +10,7 @@ public class DataIngestionHive {
 
     private static final String HQL_SCRIPT  = "common/Hive/ingest.hql";
     private static final String HDFS_BASE   = "/user/nasa_etl";
-    private static final String UDF_JAR     = "/home/hitan/DBMS/Project/Hive/UDF/logparser-udf.jar";
+    private static final String UDF_JAR     = "Hive/UDF/logparser-udf.jar";
 
     public static void main(String[] args) throws Exception {
         if (args.length < 2) {

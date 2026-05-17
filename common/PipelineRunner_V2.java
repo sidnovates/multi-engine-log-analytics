@@ -106,7 +106,19 @@ public class PipelineRunner_V2 {
             runCommand("jar -cf Pig/UDF/logparser-udf.jar -C /tmp/pig_udf_classes .");
         } else if (engineName.equalsIgnoreCase("Hive")) {
             System.out.println("\n--- Pre-compiling Hive UDF JAR ---");
-            String hiveExec = "/home/hitan/hive/lib/hive-exec-3.1.3.jar";
+            String userHome = System.getProperty("user.home");
+            String hiveHome = System.getenv("HIVE_HOME");
+            if (hiveHome == null) {
+                hiveHome = userHome + "/hive";
+            }
+            File hiveLibDir = new File(hiveHome, "lib");
+            String hiveExec = hiveHome + "/lib/hive-exec-3.1.3.jar"; // default fallback
+            if (hiveLibDir.exists() && hiveLibDir.isDirectory()) {
+                File[] files = hiveLibDir.listFiles((dir, name) -> name.startsWith("hive-exec") && name.endsWith(".jar"));
+                if (files != null && files.length > 0) {
+                    hiveExec = files[0].getAbsolutePath();
+                }
+            }
             runCommand("mkdir -p /tmp/hive_udf_classes");
             runCommand("javac -classpath \"`hadoop classpath`:" + hiveExec + "\" -d /tmp/hive_udf_classes common/Parsing/*.java Hive/UDF/LogParserUDF.java");
             runCommand("jar -cf Hive/UDF/logparser-udf.jar -C /tmp/hive_udf_classes .");
@@ -300,7 +312,12 @@ public class PipelineRunner_V2 {
     private static void runHiveQuery(int queryNum, String filePath, int runId) {
         String queryName = (queryNum == 1) ? "Q1Hive" : (queryNum == 2) ? "Q2Hive" : "Q3Hive";
         String mainClass = "Query" + queryNum + ".Hive." + queryName;
-        String cp = "/home/hitan/DBMS/compiled:$(hadoop classpath):/home/hitan/hive/lib/*:/home/hitan/.m2/repository/org/postgresql/postgresql/42.7.1/postgresql-42.7.1.jar";
+        String userHome = System.getProperty("user.home");
+        String hiveHome = System.getenv("HIVE_HOME");
+        if (hiveHome == null) {
+            hiveHome = userHome + "/hive";
+        }
+        String cp = "target/classes:$(hadoop classpath):" + hiveHome + "/lib/*:$(find " + userHome + "/.m2 -name 'postgresql-*.jar' 2>/dev/null | head -1)";
         String command = "java -Xmx512m -cp \"" + cp + "\" " + mainClass + " \"" + filePath + "\" " + runId;
         System.out.println("Executing Query " + queryNum + " (Hive)...");
         runCommand(command);

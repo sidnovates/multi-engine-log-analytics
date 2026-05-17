@@ -1,4 +1,4 @@
-REGISTER /home/hitan/DBMS/Project/Pig/UDF/logparser-udf.jar;
+REGISTER $UDF_JAR;
 
 DEFINE parse_log Pig.UDF.LogParserPigUDF();
 

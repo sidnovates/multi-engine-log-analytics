@@ -10,6 +10,7 @@ public class DataIngestionPig {
 
     private static final String PIG_SCRIPT  = "common/PIG/ingest.pig";
     private static final String HDFS_BASE   = "/user/nasa_etl";
+    private static final String UDF_JAR     = "Pig/UDF/logparser-udf.jar";
 
     public static void main(String[] args) throws Exception {
         if (args.length < 2) {
@@ -88,10 +89,10 @@ public class DataIngestionPig {
     }
 
     private static int runPigScript(String scriptPath, String inputDir, String outputDir) {
-        // Suppress massive log output from pig if desired, but retaining default standard out format
+        String absUdfJar = new File(UDF_JAR).getAbsolutePath();
         String cmd = String.format(
-            "pig -param INPUT=%s -param OUTPUT=%s -f %s",
-            inputDir, outputDir, scriptPath
+            "pig -param INPUT=%s -param OUTPUT=%s -param UDF_JAR=%s -f %s",
+            inputDir, outputDir, absUdfJar, scriptPath
         );
         return runShell(cmd);
     }
