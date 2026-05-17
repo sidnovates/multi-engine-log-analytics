@@ -132,7 +132,9 @@ public class QueryTimingAnalyzer {
                      "      SELECT DISTINCT ON (pipeline_name) run_id " +
                      "      FROM run_metadata " +
                      "      WHERE dataset_name = ? AND pipeline_name != ? " +
-                     "        AND total_runtime > 0 AND total_record_count > 1000 " +
+                     "        AND total_runtime > 0 " +
+                     "        AND total_record_count > 0 " +
+                     "        AND total_malformed_record_count < total_record_count " +
                      "      ORDER BY pipeline_name, execution_timestamp DESC " +
                      "   ) " +
                      "GROUP BY rm.pipeline_name, qm.query_number ORDER BY rm.pipeline_name, qm.query_number";

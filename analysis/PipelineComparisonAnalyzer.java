@@ -88,8 +88,9 @@ public class PipelineComparisonAnalyzer {
         String getFastestSql = "SELECT DISTINCT ON (pipeline_name) pipeline_name, run_id, total_runtime " +
                                "FROM run_metadata " +
                                "WHERE dataset_name = ? AND pipeline_name != ? " +
-                               "AND total_runtime > 0 " + // Filter out crashes
-                               "AND total_record_count > 1000 " + // Filter out partial/accidental runs
+                               "AND total_runtime > 0 " + 
+                               "AND total_record_count > 0 " + 
+                               "AND total_malformed_record_count < total_record_count " +
                                "ORDER BY pipeline_name, total_runtime ASC";
 
         System.out.println("----------------------------------------------------------------------");
