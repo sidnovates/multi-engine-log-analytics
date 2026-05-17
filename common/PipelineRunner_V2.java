@@ -104,6 +104,12 @@ public class PipelineRunner_V2 {
             runCommand("mkdir -p /tmp/pig_udf_classes");
             runCommand("javac -classpath \"$(cat .classpath):`hadoop classpath`\" -d /tmp/pig_udf_classes common/Parsing/*.java Pig/UDF/LogParserPigUDF.java");
             runCommand("jar -cf Pig/UDF/logparser-udf.jar -C /tmp/pig_udf_classes .");
+        } else if (engineName.equalsIgnoreCase("Hive")) {
+            System.out.println("\n--- Pre-compiling Hive UDF JAR ---");
+            String hiveExec = "/home/hitan/hive/lib/hive-exec-3.1.3.jar";
+            runCommand("mkdir -p /tmp/hive_udf_classes");
+            runCommand("javac -classpath \"`hadoop classpath`:" + hiveExec + "\" -d /tmp/hive_udf_classes common/Parsing/*.java Hive/UDF/LogParserUDF.java");
+            runCommand("jar -cf Hive/UDF/logparser-udf.jar -C /tmp/hive_udf_classes .");
         }
 
         // 4. Load Batches
@@ -210,6 +216,12 @@ public class PipelineRunner_V2 {
                     common.PIG.DataIngestionPig.run(batchFile.getPath(), runId);
                     queryInputPath = "/user/nasa_etl/pig_parsed/batch_" + runId;
                 } catch (Exception e) { e.printStackTrace(); }
+            } else if (engineName.equalsIgnoreCase("Hive")) {
+                System.out.println("Running Phase 1: Hive TSV Ingestion (Native JVM)...");
+                try {
+                    common.Hive.DataIngestionHive.run(batchFile.getPath(), runId);
+                    queryInputPath = "/user/nasa_etl/hive_parsed/batch_" + runId;
+                } catch (Exception e) { e.printStackTrace(); }
             }
 
             // Execute All Queries (1, 2, and 3)
@@ -228,6 +240,13 @@ public class PipelineRunner_V2 {
                         else if (q == 2) Query2.PIG.Q2Pig_V2.run(queryInputPath, runId);
                         else if (q == 3) Query3.PIG.Q3Pig_V2.run(queryInputPath, runId);
                     } catch (Exception e) { e.printStackTrace(); }
+                } else if (engineName.equalsIgnoreCase("Hive")) {
+                    System.out.println("Executing Query " + q + " (Hive V2 Phase 2 natively)...");
+                    try {
+                        if (q == 1) Query1.Hive.Q1Hive_V2.run(queryInputPath, runId);
+                        else if (q == 2) Query2.Hive.Q2Hive_V2.run(queryInputPath, runId);
+                        else if (q == 3) Query3.Hive.Q3Hive_V2.run(queryInputPath, runId);
+                    } catch (Exception e) { e.printStackTrace(); }
                 } else {
                     runQuery(q, engineName, classSuffix, queryInputPath, runId);
                 }
@@ -243,6 +262,9 @@ public class PipelineRunner_V2 {
                 runCommand("rm -rf " + tsvOutputDir); // Clean up local file system (using local file path semantics of MR)
             } else if (engineName.equalsIgnoreCase("Pig")) {
                 System.out.println("Cleaning up parsed HDFS TSV directory for Pig...");
+                runCommand("hadoop fs -rm -r -skipTrash " + queryInputPath);
+            } else if (engineName.equalsIgnoreCase("Hive")) {
+                System.out.println("Cleaning up parsed HDFS TSV directory for Hive...");
                 runCommand("hadoop fs -rm -r -skipTrash " + queryInputPath);
             }
             
