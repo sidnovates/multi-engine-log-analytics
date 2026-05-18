@@ -136,6 +136,21 @@
 
                 </div>
 
+                <!-- Query Selector -->
+                <div class="form-group">
+                    <label class="form-label" for="querySelect">Execute Query</label>
+                    <p class="form-hint">Choose a specific query or execute all queries</p>
+                    <div class="select-wrapper">
+                        <select id="querySelect" name="querySelect">
+                            <option value="all" selected>✨ All Queries (Q1, Q2, Q3)</option>
+                            <option value="1">1️⃣ Query 1: Daily Traffic & Byte Statistics</option>
+                            <option value="2">2️⃣ Query 2: Top 20 Most Requested Resources</option>
+                            <option value="3">3️⃣ Query 3: Hourly Error Rate Distribution</option>
+                        </select>
+                        <span class="select-arrow">▾</span>
+                    </div>
+                </div>
+
                 <!-- Submit Button -->
                 <button type="submit" class="run-btn" id="submitBtn">
                     <span class="run-btn-text" id="btnText">

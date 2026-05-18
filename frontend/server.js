@@ -90,6 +90,9 @@ app.post('/api/run-pipeline', upload.single('logfile'), (req, res) => {
         console.log(`[PIPELINE] Final Target Dataset: ${targetDataset}`);
         if (datasetMode === 'custom') console.log(`[PIPELINE] Batch Size: ${batchSizeUsed}`);
 
+        const querySelect = req.body.querySelect || "all";
+        console.log(`[PIPELINE] Selected Query to Run: ${querySelect}`);
+
         const startTime = Date.now();
         // projectRoot is now global
         
@@ -98,7 +101,7 @@ app.post('/api/run-pipeline', upload.single('logfile'), (req, res) => {
         
         // We pass the raw uploadFolder to listener.sh if custom, otherwise the pre-split dataset
         const queueDataset = datasetMode === 'custom' ? uploadFolder : targetDataset;
-        const commandData = `${queueDataset} ${method} ${batchSizeUsed}`;
+        const commandData = `${queueDataset} ${method} ${batchSizeUsed} ${querySelect}`;
         
         fs.writeFileSync(queueFile, commandData);
         console.log(`[QUEUE] Wrote command to listener queue: ${commandData}`);

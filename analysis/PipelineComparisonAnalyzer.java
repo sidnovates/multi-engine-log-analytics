@@ -84,21 +84,21 @@ public class PipelineComparisonAnalyzer {
             return;
         }
 
-        // 2. Find fastest SUCCESSFUL run_id for OTHER pipelines on same dataset
-        String getFastestSql = "SELECT DISTINCT ON (pipeline_name) pipeline_name, run_id, total_runtime " +
-                               "FROM run_metadata " +
-                               "WHERE dataset_name = ? AND pipeline_name != ? " +
-                               "AND total_runtime > 0 " + 
-                               "AND total_record_count > 0 " + 
-                               "AND total_malformed_record_count < total_record_count " +
-                               "ORDER BY pipeline_name, total_runtime ASC";
+        // 2. Find latest SUCCESSFUL run_id for OTHER pipelines on same dataset
+        String getLatestSql = "SELECT DISTINCT ON (pipeline_name) pipeline_name, run_id, total_runtime " +
+                              "FROM run_metadata " +
+                              "WHERE dataset_name = ? AND pipeline_name != ? " +
+                              "AND total_runtime > 0 " + 
+                              "AND total_record_count > 0 " + 
+                              "AND total_malformed_record_count < total_record_count " +
+                              "ORDER BY pipeline_name, execution_timestamp DESC";
 
         System.out.println("----------------------------------------------------------------------");
-        System.out.println("Finding fastest competitors on same dataset...");
+        System.out.println("Finding latest successful competitors on same dataset...");
 
         boolean competitorsFound = false;
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(getFastestSql)) {
+             PreparedStatement pstmt = conn.prepareStatement(getLatestSql)) {
             
             pstmt.setString(1, datasetName);
             pstmt.setString(2, currentPipeline);

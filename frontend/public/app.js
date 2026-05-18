@@ -187,6 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const formData = new FormData();
         formData.append('method', pipeline.value);
         formData.append('datasetMode', mode);
+        formData.append('querySelect', document.getElementById('querySelect').value);
         if (mode === 'pre_split') {
             formData.append('datasetName', datasetSelect.value);
         } else {

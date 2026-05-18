@@ -20,6 +20,7 @@ public class PipelineRunner_V2 {
         String engineName = null;
         String classSuffix = null;
         int targetBatchSize = 0;
+        String querySelect = "all";
 
         if (args.length >= 2) {
             // Headless Mode (from Frontend)
@@ -47,6 +48,9 @@ public class PipelineRunner_V2 {
                 try {
                     targetBatchSize = Integer.parseInt(args[2]);
                 } catch (Exception e) {}
+            }
+            if (args.length >= 4) {
+                querySelect = args[3];
             }
         } else {
             // Interactive Mode (CLI)
@@ -86,6 +90,19 @@ public class PipelineRunner_V2 {
             } else {
                 engineName = "MR";      classSuffix = "MR";
             }
+
+            // 3. Select Query
+            System.out.println("\nSelect Query to Execute:");
+            System.out.println("[1] All Queries (Q1, Q2, Q3)");
+            System.out.println("[2] Query 1 Only");
+            System.out.println("[3] Query 2 Only");
+            System.out.println("[4] Query 3 Only");
+            System.out.print("Choice: ");
+            int qChoice = scanner.nextInt();
+            if (qChoice == 2) querySelect = "1";
+            else if (qChoice == 3) querySelect = "2";
+            else if (qChoice == 4) querySelect = "3";
+            else querySelect = "all";
         }
 
         // 3. Compile Everything Once (Automatic)
@@ -245,8 +262,14 @@ public class PipelineRunner_V2 {
                 } catch (Exception e) { e.printStackTrace(); }
             }
 
-            // Execute All Queries (1, 2, and 3)
+            // Execute Selected Queries
             for (int q = 1; q <= 3; q++) {
+                if (!querySelect.equalsIgnoreCase("all")) {
+                    try {
+                        int targetQ = Integer.parseInt(querySelect);
+                        if (q != targetQ) continue;
+                    } catch (Exception e) {}
+                }
                 long qStart = System.currentTimeMillis();
                 
                 if (engineName.equalsIgnoreCase("MongoDB")) {

@@ -48,15 +48,19 @@ while true; do
             EXEC_ID=$(echo $CMD_DATA | awk '{print $2}')
             run_analysis "$EXEC_ID"
         else
-            # It's a pipeline run: dataset method batchSize
+            # It's a pipeline run: dataset method batchSize querySelect
             DS=$(echo $CMD_DATA | awk '{print $1}')
             METHOD=$(echo $CMD_DATA | awk '{print $2}')
             BATCH=$(echo $CMD_DATA | awk '{print $3}')
+            QUERY=$(echo $CMD_DATA | awk '{print $4}')
+            if [ -z "$QUERY" ]; then
+                QUERY="all"
+            fi
 
-            echo "🚀 Starting Pipeline: $METHOD on $DS"
+            echo "🚀 Starting Pipeline: $METHOD on $DS (Query: $QUERY)"
             
             # Run the PipelineRunner
-            mvn -q -f "$POM_FILE" exec:java -Dexec.mainClass="common.PipelineRunner_V2" -Dexec.args="$DS $METHOD $BATCH"
+            mvn -q -f "$POM_FILE" exec:java -Dexec.mainClass="common.PipelineRunner_V2" -Dexec.args="$DS $METHOD $BATCH $QUERY"
 
             # Get the execution ID from the .latest_execution_id file
             if [ -f "$ROOT/.latest_execution_id" ]; then
