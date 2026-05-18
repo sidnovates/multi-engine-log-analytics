@@ -29,5 +29,5 @@ SELECT
     concat_ws(',', collect_set(host)) as hostsList
 FROM parsed_logs
 GROUP BY resource
-ORDER BY requestCount DESC
+ORDER BY requestCount DESC, resource DESC
 LIMIT 20;

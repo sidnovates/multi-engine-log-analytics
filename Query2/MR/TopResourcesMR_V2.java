@@ -59,7 +59,10 @@ public class TopResourcesMR_V2 {
             list.sort((a, b) -> {
                 int countA = Integer.parseInt(a.getValue().split("\t")[0]);
                 int countB = Integer.parseInt(b.getValue().split("\t")[0]);
-                return countB - countA;
+                if (countB != countA) {
+                    return countB - countA;
+                }
+                return b.getKey().compareTo(a.getKey()); // Tie-breaker: Z to A to match Hive & MongoDB
             });
 
             int topK = Math.min(20, list.size());

@@ -59,7 +59,7 @@ public class Q2Mongo_V2 {
                         )))
                     ))
                 ),
-                new Document("$sort", new Document("requestCount", -1)),
+                new Document("$sort", new Document("requestCount", -1).append("_id", -1)),
                 new Document("$limit", 20)
             );
 

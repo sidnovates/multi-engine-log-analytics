@@ -11,7 +11,7 @@ public class RunHistoryProvider {
         String sql = "SELECT run_id, pipeline_name, dataset_name, execution_timestamp " +
                      "FROM run_metadata " +
                      "WHERE total_runtime > 0 " + // Only show completed runs
-                     "ORDER BY execution_timestamp DESC";
+                     "ORDER BY run_id DESC";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql);
