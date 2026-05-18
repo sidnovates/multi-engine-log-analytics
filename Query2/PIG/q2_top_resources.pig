@@ -46,7 +46,7 @@ aggregated = FOREACH grouped {
 };
 
 -- ── 7. Sort descending by request_count — same as TopResourcesMR.cleanup() ───
-ordered = ORDER aggregated BY request_count DESC;
+ordered = ORDER aggregated BY request_count DESC, resource DESC;
 
 -- ── 8. Take top 20 — single reducer needed for global correctness ─────────────
 top20 = LIMIT ordered 20;

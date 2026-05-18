@@ -94,7 +94,7 @@ public class PipelineRunner_V2 {
 
         if (engineName.equalsIgnoreCase("MR")) {
             System.out.println("\n--- Pre-compiling MapReduce JARs ---");
-            runCommand("javac -classpath \"$(cat .classpath):`hadoop classpath`\" -d . common/Parsing/*.java common/sql/*.java common/MR/DataIngestionMR.java Query1/MR/DailyTrafficMR_V2.java Query2/MR/TopResourcesMR_V2.java Query3/MR/HourlyErrorMR_V2.java");
+            runCommand("javac -source 1.8 -target 1.8 -classpath \"$(cat .classpath):`hadoop classpath`\" -d . common/Parsing/*.java common/sql/*.java common/MR/DataIngestionMR.java Query1/MR/DailyTrafficMR_V2.java Query2/MR/TopResourcesMR_V2.java Query3/MR/HourlyErrorMR_V2.java");
             runCommand("jar -cf common/MR/DataIngestionMR.jar common/Parsing/*.class common/sql/*.class common/MR/*.class");
             runCommand("jar -cf Query1/MR/DailyTrafficMR_V2.jar common/Parsing/*.class common/sql/*.class Query1/MR/*.class");
             runCommand("jar -cf Query2/MR/TopResourcesMR_V2.jar common/Parsing/*.class common/sql/*.class Query2/MR/*.class");
@@ -102,7 +102,11 @@ public class PipelineRunner_V2 {
         } else if (engineName.equalsIgnoreCase("Pig")) {
             System.out.println("\n--- Pre-compiling Pig UDF JAR ---");
             runCommand("mkdir -p /tmp/pig_udf_classes");
-            runCommand("javac -classpath \"$(cat .classpath):`hadoop classpath`\" -d /tmp/pig_udf_classes common/Parsing/*.java Pig/UDF/LogParserPigUDF.java");
+            String pigHome = System.getenv("PIG_HOME");
+            if (pigHome == null) {
+                pigHome = "../pig-0.17.0";
+            }
+            runCommand("javac -source 1.8 -target 1.8 -classpath \"$(cat .classpath):`hadoop classpath`:" + pigHome + "/pig-0.17.0-core-h2.jar\" -d /tmp/pig_udf_classes common/Parsing/*.java Pig/UDF/LogParserPigUDF.java");
             runCommand("jar -cf Pig/UDF/logparser-udf.jar -C /tmp/pig_udf_classes .");
         } else if (engineName.equalsIgnoreCase("Hive")) {
             System.out.println("\n--- Pre-compiling Hive UDF JAR ---");
@@ -120,7 +124,7 @@ public class PipelineRunner_V2 {
                 }
             }
             runCommand("mkdir -p /tmp/hive_udf_classes");
-            runCommand("javac -classpath \"`hadoop classpath`:" + hiveExec + "\" -d /tmp/hive_udf_classes common/Parsing/*.java Hive/UDF/LogParserUDF.java");
+            runCommand("javac -source 1.8 -target 1.8 -classpath \"`hadoop classpath`:" + hiveExec + "\" -d /tmp/hive_udf_classes common/Parsing/*.java Hive/UDF/LogParserUDF.java");
             runCommand("jar -cf Hive/UDF/logparser-udf.jar -C /tmp/hive_udf_classes .");
             if (hiveLibDir.exists() && hiveLibDir.isDirectory()) {
                 File targetJar = new File(hiveLibDir, "logparser-udf.jar");

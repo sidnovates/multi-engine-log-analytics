@@ -16,7 +16,7 @@ resource_stats = FOREACH grouped_data {
         BagToString(unique_hosts, ',') AS hostsList;
 }
 
-ordered_stats = ORDER resource_stats BY requestCount DESC;
+ordered_stats = ORDER resource_stats BY requestCount DESC, resource DESC;
 top_resources = LIMIT ordered_stats 20;
 
 STORE top_resources INTO '$OUTPUT' USING PigStorage('\t');
