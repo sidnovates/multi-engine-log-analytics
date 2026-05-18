@@ -94,7 +94,7 @@
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[L]{\textcolor{AccentCyan}{\small\textbf{DAS 839}}\textcolor{MidGray}{\small\,—\,NoSQL Systems}}
-\fancyhead[R]{\textcolor{MidGray}{\small\textit{Phase 1 Report}}\;{\color{AccentCyan}\rule[-1pt]{0.4pt}{9pt}}\;{\textcolor{PrimaryBlue}{\small\bfseries ETL Framework}}}
+\fancyhead[R]{\textcolor{MidGray}{\small\textit{Phase 2 Report}}\;{\color{AccentCyan}\rule[-1pt]{0.4pt}{9pt}}\;{\textcolor{PrimaryBlue}{\small\bfseries ETL Framework}}}
 \fancyfoot[C]{\textcolor{MidGray}{\small---\;\thepage\;---}}
 \fancyfoot[L]{\textcolor{AccentCyan!70}{\scriptsize Multi-Pipeline ETL Framework}}
 \fancyfoot[R]{\textcolor{MidGray!60}{\scriptsize NASA HTTP Logs}}
@@ -198,36 +198,43 @@
     ([xshift=2cm, yshift=-15cm]current page.north west) circle (4cm);
 \end{tikzpicture}
 
-\vspace*{1.5cm}
+\vspace*{1.2cm}
 \begin{center}
-
   \vspace{2.5cm}
 
-  {\fontsize{22}{28}\selectfont\bfseries\color{PrimaryBlue}
-    Multi-Pipeline ETL and\\ Reporting Framework}\\[10pt]
-  {\fontsize{14}{18}\selectfont\color{MidGray}
+  % Increased title size for better impact
+  {\fontsize{28}{34}\selectfont\bfseries\color{PrimaryBlue}
+    Multi-Pipeline ETL and\\ Reporting Framework}\\[12pt]
+  {\fontsize{16}{20}\selectfont\color{MidGray}
     for Web Server Log Analytics}
 
-  \vspace{0.9cm}
-  \textcolor{AccentCyan}{\rule{10cm}{1.5pt}}
+  \vspace{1.0cm}
+  \textcolor{AccentCyan}{\rule{11cm}{1.5pt}}
 
-  \vspace{1.1cm}
+  \vspace{1.2cm}
 
-  \begin{tabular}{rl}
-    \textcolor{MidGray}{\small Course:} &
-      \textbf{\small DAS 839 -- NoSQL Systems}\\[4pt]
-    \textcolor{MidGray}{\small Date:} &
-      \textbf{\small April 2025}\\[4pt]
-    \textcolor{MidGray}{\small Group:} &
-      \textbf{\small [Group Number / Members]}\\[4pt]
-    \textcolor{MidGray}{\small Phase:} &
-      \textbf{\small Phase 1 --- Architecture \& Prototype}\\
-  \end{tabular}
+% Metadata labels bumped to \normalsize
+\renewcommand{\arraystretch}{1.2} % Global spacing for the table
+\begin{tabular}{rl}
+  \textcolor{MidGray}{\normalsize Course:} &
+    \textbf{\normalsize DAS 839 -- NoSQL Systems}\\[6pt]
+  \textcolor{MidGray}{\normalsize Date:} &
+    \textbf{\normalsize 28 April 2025}\\[6pt]
+  \textcolor{MidGray}{\normalsize Group:} &
+    \textbf{\normalsize Group 10}\\[12pt] 
+  \textcolor{MidGray}{\normalsize Members:} &
+    \textbf{\normalsize \begin{tabular}[t]{l}
+      Siddharth Anil (IMT2023503)\\
+      Yash Gupta (IMT2023125)\\
+      Hitanshu Seth (IMT2023100)\\
+      Pranay Kelotra (IMT2023563)
+    \end{tabular}}\\[20pt] 
+\end{tabular}
 
   \vspace{1.8cm}
-  \textcolor{AccentCyan}{\rule{10cm}{0.6pt}}\\[10pt]
+  \textcolor{AccentCyan}{\rule{11cm}{0.6pt}}\\[12pt]
 
-  {\small\color{MidGray}
+  {\normalsize\color{MidGray}
     \textbf{Execution Backends:}\quad
     \textcolor{MRBlue}{\textbf{MapReduce}}\quad
     \textcolor{MongoGreen}{\textbf{MongoDB}}\quad
@@ -235,19 +242,28 @@
     \textcolor{PigPink}{\textbf{Pig}}
   }
 
-  \vspace{1.2cm}
+  \vspace{1.5cm}
   \begin{tikzpicture}
-    \node[draw=AccentCyan!80, fill=LightBg, thick, rounded corners=5pt, inner xsep=12pt, inner ysep=8pt, font=\small, drop shadow={fill=black!10, opacity=0.4, shadow xshift=1.5pt, shadow yshift=-1.5pt}] {
+    % Increased box padding and font to \normalsize
+    \node[draw=AccentCyan!80, fill=LightBg, thick, rounded corners=6pt, inner xsep=15pt, inner ysep=10pt, font=\normalsize, drop shadow={fill=black!10, opacity=0.4, shadow xshift=2pt, shadow yshift=-2pt}] {
       \textbf{\color{PrimaryBlue}GitHub Repository:}\quad 
-      \href{https://github.com/pkelotra/NO_SQL-Project}{\color{AccentTeal}\texttt{github.com/pkelotra/NO\_SQL-Project}}
+      \href{https://github.com/sidnovates/multi-engine-log-analytics}{\color{AccentTeal}\texttt{github.com/sidnovates/multi-engine-log-analytics}}
+    };
+  \end{tikzpicture}
+
+  \vspace{0.5cm}
+  \begin{tikzpicture}
+    \node[draw=red!60, fill=LightBg, thick, rounded corners=6pt, inner xsep=15pt, inner ysep=10pt, font=\normalsize, drop shadow={fill=black!10, opacity=0.4, shadow xshift=2pt, shadow yshift=-2pt}] {
+      \textbf{\color{red!70!black}YouTube Demo:}\quad 
+      \href{https://www.youtube.com/playlist?list=PL94JLlHobXx9NyfBgfX47VgjbPDm3WBqg}{\color{red!70!black}\texttt{youtube.com/playlist?list=PL94JLlHobXx9NyfBgfX47VgjbPDm3WBqg}}
     };
   \end{tikzpicture}
 \end{center}
 
 \vfill
 \begin{tikzpicture}[remember picture, overlay]
-  \node[anchor=south, text=white!80, yshift=0.4cm] at (current page.south) {%
-    \small NASA HTTP Web Server Logs --- Kennedy Space Center (Jul--Aug 1995)%
+  \node[anchor=south, text=white!85, yshift=0.5cm] at (current page.south) {%
+    \normalsize NASA HTTP Web Server Logs --- Kennedy Space Center (Jul--Aug 1995)%
   };
 \end{tikzpicture}
 \end{titlepage}
@@ -361,97 +377,55 @@ The system comprises five tightly coupled components:
 \rowcolor{PrimaryBlue} \textcolor{white}{\textbf{Component}} & \textcolor{white}{\textbf{Responsibility}} \\
 \midrule
 \rowcolor{RowAlt}\textbf{\color{PrimaryBlue}User Interface (UI)} &
-  Accepts pipeline selection (one of four systems), dataset path, and batch size. Triggers the ETL engine and passes control to the Reporting Module on completion. \\[2pt]
+  Web dashboard (Node/Express) with optional CLI. Selects pipeline, dataset mode and batch size. \\[2pt]
 \textbf{\color{PrimaryBlue}ETL Engine} &
-  Orchestrates Extract--Transform--Load. Reads raw logs, invokes the chosen service for parsing and aggregation, and pushes results to the relational database. \\[2pt]
+  \texttt{PipelineRunner\_V2} orchestrates compilation, per-batch ingestion, query execution, and metadata capture before loading results into PostgreSQL. \\[2pt]
 \rowcolor{RowAlt}\textbf{\color{PrimaryBlue}Aggregation Layer} &
   The backend-specific execution layer (MapReduce / MongoDB / Hive / Pig) that computes the three mandatory queries over the structured records. \\[2pt]
 \textbf{\color{PrimaryBlue}Relational Database} &
-  PostgreSQL store holding all query results. Acts as the single source of truth for cross-pipeline comparison. \\[2pt]
+  PostgreSQL store holding run metadata, batch metadata, query runtimes, and query results for cross-pipeline comparison. \\[2pt]
 \rowcolor{RowAlt}\textbf{\color{PrimaryBlue}Reporting Module} &
-  Reads the relational database and presents results in structured format. \\
+  Java analysis suite (\texttt{MasterAnalyzer}) generates charts in \texttt{analysis/graphs}; the web UI displays run history and visual analytics. \\
 \arrayrulecolor{PrimaryBlue!30}\bottomrule
 \end{tabular}
 \end{center}
 
-\section{User Interface Design}
-
-The UI is a command-line or lightweight web front-end that presents the operator with pipeline and dataset configurations before any computation begins. The user can select the target pipeline and choose between two data input modes:
+\section{User Interface}
+\subsection{Control Panel UI}
+The primary UI is a web dashboard (Node/Express) that submits pipeline runs without blocking the browser. It writes a command to pipeline\_queue, which is consumed by \texttt{listener.sh} in a terminal configured for Hadoop and Java. \texttt{PipelineRunner\_V2} still supports an interactive CLI when run directly. The user selects the target pipeline and chooses between two data input modes:
 
 \begin{itemize}
-  \item \textbf{Pre-split Dataset:} The user selects from a predefined list of dataset names that have already been partitioned into batches.
-  \item \textbf{Custom Configuration:} The user manually specifies the path to a raw dataset file and the desired batch size. Upon execution, the system will dynamically split the file into batches before processing.
+  \item \textbf{Pre-split Dataset:} The user selects a folder under \texttt{common/Dataset}, where batches already exist as \texttt{b<id>\_<count>.txt} files.
+  \item \textbf{Custom Configuration:} The user uploads a raw log file and specifies a batch size. The server stores the file under \texttt{common/Dataset/upload\_<timestamp>} and \texttt{BatchSplitter} creates a new \texttt{<name>\_<batchSize>} folder for processing.
 \end{itemize}
 
-\vspace{6pt}
-\begin{center}
-\begin{tikzpicture}[font=\small]
-  \node[draw=PrimaryBlue, rounded corners=6pt, fill=LightBg,
-        minimum width=12.5cm, minimum height=6.2cm] (panel) {};
-  \node[above=0pt of panel.north, anchor=south,
-        fill=PrimaryBlue, text=white, rounded corners=3pt,
-        inner sep=4pt, font=\bfseries\footnotesize]
-    {ETL Framework --- Pipeline Control Panel};
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{Screenshot 2026-05-18 210548.png}
+  \caption{Unified Web Dashboard Control Panel and Real-Time Interface}
+  \label{fig:control_panel_ui}
+\end{figure}
 
-  % Pipeline selector row
-  \node[draw=AccentCyan!60, rounded corners=3pt, fill=white, minimum width=11.5cm,
-        minimum height=1.0cm, yshift=1.9cm] (ps) {%
-    \textbf{Select Pipeline:}\quad
-    \colorbox{MRBlue}{\textcolor{white}{\small MapReduce}}\enspace
-    \colorbox{MongoGreen}{\textcolor{white}{\small MongoDB}}\enspace
-    \colorbox{HiveYellow}{\textcolor{white}{\small Hive}}\enspace
-    \colorbox{PigPink}{\textcolor{white}{\small Pig}}%
-  };
-  \node[font=\tiny\itshape\color{MidGray}, above=1pt of ps.south west, anchor=south west,
-        xshift=4pt]{(select exactly one)};
 
-  % Dataset Selection Box
-  \node[draw=MidGray!35, rounded corners=3pt, fill=white, minimum width=11.5cm,
-        minimum height=2.4cm, yshift=-0.1cm] (ds) {};
-  \node[anchor=north west, font=\bfseries, inner sep=6pt] at (ds.north west) {Dataset Input Mode:};
+Upon clicking the \textbf{Run Pipeline} button, the execution starts asynchronously in the background. 
 
-  % Option 1: Pre-split
-  \node[anchor=west] at ([xshift=8pt, yshift=0.25cm]ds.west) {%
-    \textcolor{MidGray}{\ding{109}}\enspace\textbf{Pre-split Dataset:}\quad
-    \colorbox{SoftGray}{\texttt{NASA\_Logs\_PreBatched} \textcolor{MidGray}{$\nabla$}}
-  };
-  
-  % Option 2: Custom
-  \node[anchor=west] at ([xshift=8pt, yshift=-0.45cm]ds.west) {%
-    \textcolor{PrimaryBlue}{\ding{108}}\enspace\textbf{Custom File:}\quad
-    Path: \colorbox{SoftGray}{\texttt{/data/raw.log}}\enspace
-    Size: \colorbox{SoftGray}{\texttt{10000}}
-  };
-
-  % Run button
-  \node[fill=PrimaryBlue, text=white, rounded corners=4pt,
-        minimum width=3.6cm, minimum height=0.75cm, yshift=-2.3cm,
-        font=\bfseries]
-    {Run Pipeline};
-\end{tikzpicture}
-\end{center}
-
-\vspace{4pt}
-After execution, the UI passes control to the Reporting Module, which reads the relational database and renders structured results including query output tables, wall-clock runtime, batch statistics, and the malformed-record count.
-
-\subsection{Historical Analysis Library}
-
-To transition the framework from a simple execution tool to a comprehensive analytics platform, a \textbf{Historical Analysis Library} was implemented in the frontend. This module allows users to access and visualize results from previous executions without re-triggering the computationally expensive Hadoop or NoSQL pipelines.
-
+Once the pipeline execution finishes successfully:
 \begin{itemize}
-  \item \textbf{Persistence Layer:} The library queries the PostgreSQL \texttt{run\_metadata} table to identify all successful historical runs.
-  \item \textbf{Smart Filtering:} It utilizes a \texttt{DISTINCT ON (dataset\_name, pipeline\_name)} query logic, ensuring that users are presented with the \textbf{latest} result for every unique combination of dataset and processing engine.
-  \item \textbf{On-Demand Analysis:} When a historical run is selected, the frontend triggers the \texttt{MasterAnalyzer} via the background listener. The system regenerates the performance charts (Data Quality, Pipeline Comparison, and Batch Timings) using the existing database records and updates the UI dashboard in real-time.
+  \item A success confirmation containing the generated \textbf{Database Run ID} and total runtime is displayed in a collapsible results card.
+  \item The system provides a prominent \textbf{View Analysis} button. 
+  \item Clicking this button triggers the on-demand analytical suite (\texttt{MasterAnalyzer}) to parse the database run data and generate comparison graphs.
+  \item These graphs are presented dynamically in the browser, showing key performance comparison metrics: parsed valid vs. malformed records, pipeline runtimes vs. competitor systems, and query-by-query execution speeds.
 \end{itemize}
 
 \subsection{Reporting Module}
 
-The Reporting Module reads from the relational database and presents:
+The Reporting Module reads from the relational database and produces:
 \begin{itemize}
-  \item \textbf{Run metadata:} pipeline name, run ID, batch ID, batch size, total runtime (seconds), malformed count
-  \item \textbf{Query 1 table} --- Daily Traffic Summary (grouped by date and status code)
-  \item \textbf{Query 2 table} --- Top 20 Requested Resources
-  \item \textbf{Query 3 table} --- Hourly Error Analysis (grouped by date and hour)
+  \item \textbf{Data quality:} valid vs malformed record counts per pipeline
+  \item \textbf{Pipeline comparison:} end-to-end runtime benchmarks across engines
+  \item \textbf{Query timing:} per-query and per-batch runtime trends
+  \item \textbf{Batch-size impact:} throughput and latency tradeoffs
+  \item \textbf{Result validation:} visual checks of query outputs for integrity
 \end{itemize}
 
 \begin{notebox}
@@ -471,7 +445,7 @@ The framework is a single coherent tool. The execution backend is a pluggable mo
 \begin{itemize}
   \item \textbf{Batch size} --- configurable integer supplied via the UI (e.g.\ 10\,000 records).
   \item \textbf{Batch ID} --- sequential integer, incrementing by 1 from 1, for each subsequent batch.
-  % \item \textbf{Final batch} --- if the last group contains fewer records than the configured batch size, it is still counted as a valid batch and given the next sequential ID.
+  \item \textbf{Final batch} --- if the last group contains fewer records than the configured batch size, it is still counted as a valid batch and given the next sequential ID.
 \end{itemize}
 \end{tcolorbox}
 
@@ -482,7 +456,7 @@ The \textbf{average batch size} is reported as:
 \]
 
 \subsection{Batch Processing Diagram}
-Before records undergo parsing and aggregation, the framework orchestrates batching as dictated by the \texttt{PipelineRunner.java} driver. The system partitions the dataset based on the configured number of records per batch, and processes the queries sequentially.
+Before records undergo parsing and aggregation, the framework orchestrates batching as dictated by \texttt{PipelineRunner\_V2}. The system partitions datasets into physical batch files using \texttt{BatchSplitter} (for custom uploads) or uses pre-split folders, then processes the batches sequentially.
 
 \begin{figure}[H]
 \centering
@@ -524,6 +498,54 @@ Before records undergo parsing and aggregation, the framework orchestrates batch
 \caption{Flow chart showing dataset splitting and query execution per batch.}
 \label{fig:batching_flow}
 \end{figure}
+\subsection{Batch Running Diagram}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+  node distance=0.5cm and 0.5cm,
+  box/.style={rectangle, rounded corners=3pt, draw, thick,
+              minimum width=2.3cm, minimum height=0.72cm,
+              text centered, font=\small},
+  arr/.style={-{Stealth}, thick, MidGray},
+]
+
+\node[box, fill=PrimaryBlue!12, draw=PrimaryBlue, minimum width=3.5cm] (input)
+  {Input Log File};
+
+\node[box, fill=AccentCyan!12, draw=AccentCyan!70,
+      below right=0.7cm and -1.8cm of input] (b1)
+  {Batch 1\\{\tiny records 1--N}};
+\node[box, fill=AccentCyan!12, draw=AccentCyan!70,
+      right=0.4cm of b1] (b2)
+  {Batch 2\\{\tiny records N+1--2N}};
+\node[box, fill=AccentCyan!12, draw=AccentCyan!70,
+      right=0.4cm of b2] (b3)
+  {Batch 3\\{\tiny records 2N+1--3N}};
+\node[font=\large\color{MidGray}, right=0.3cm of b3] (dots) {\ldots};
+\node[box, fill=AccentOrange!12, draw=AccentOrange,
+      right=0.3cm of dots] (bn)
+  {Batch $k$\\{\tiny (last batch)}};
+
+\node[box, fill=SuccessGreen!12, draw=SuccessGreen,
+      below=0.9cm of b2, xshift=1.7cm, minimum width=5.5cm,
+      minimum height=0.85cm] (agg)
+  {\textbf{Aggregation \& SQL Store}};
+
+\draw[arr] (input.south) -- ++(0,-0.32) -| (b1.north);
+\draw[arr] (input.south) -- ++(0,-0.32) -| (b2.north);
+\draw[arr] (input.south) -- ++(0,-0.32) -| (b3.north);
+\draw[arr] (input.south) -- ++(0,-0.32) -| (bn.north);
+
+\draw[arr] (b1.south) |- (agg.west);
+\draw[arr] (b2.south) -- (agg.north -| b2.south);
+\draw[arr] (b3.south) |- (agg);
+\draw[arr] (bn.south) |- (agg.east);
+
+\end{tikzpicture}
+\caption{Batch processing: input is partitioned into $k$ equal batches; the final batch may contain fewer than $N$ records}
+\label{fig:batch}
+\end{figure}
 
 % ══════════════════════════════════════════════════════════════════════════════
 %  SECTION 4 — PARSING STRATEGY
@@ -541,7 +563,7 @@ Each line in the NASA HTTP log follows the Combined Log Format. A representative
                   fontupper=\ttfamily\footnotesize\color{white}] % Reduced from \small to \footnotesize
 199.72.81.55 - - [01/Jul/1995:00:00:01 -0400] "GET /history/apollo/ HTTP/1.0" 200 6245
 \end{tcolorbox}
-
+\newpage
 \subsection{Extracted Fields}
 \vspace{4pt}
 \begin{center}
@@ -593,7 +615,7 @@ The \texttt{bytes} field is derived as:
   \item Malformed records (lines that do not match the master regex) must \textbf{not} be silently dropped. A \texttt{malformed\_record\_counter} is incremented and the count is persisted to the metadata table at the end of each run.
 \end{itemize}
 \end{constraintbox}
-
+\newpage
 \subsection{Parsing Flow Diagram}
 
 \begin{figure}[H]
@@ -638,28 +660,28 @@ The \texttt{bytes} field is derived as:
 % ══════════════════════════════════════════════════════════════════════════════
 \section{ETL Workflow}
 
-The ETL workflow remains logically identical across the implemented execution pipelines (MapReduce and MongoDB), ensuring consistent methodology regardless of the underlying engine.
+The ETL workflow remains logically identical across the implemented execution pipelines (MapReduce, MongoDB, Hive, and Pig), ensuring consistent methodology regardless of the underlying engine.
 
 \subsection{Three Phases}
 
 \subsubsection{Extract}
 \begin{itemize}
-  \item Raw log files are read from the path supplied by the user through the UI. No preprocessing outside the chosen execution pipeline is permitted (no manual CSV conversion, JSON conversion, filtering, or editing). Files are read line by line and dispatched to the transform stage in configurable batches.
-  \item The \texttt{PipelineRunner.java} supplies the dataset path and generates a unique SQL \texttt{runId} via \texttt{MetadataDAO.java}.
+  \item Raw log files are read from the dataset folder supplied by the UI (or CLI). No preprocessing outside the chosen execution pipeline is permitted (no manual CSV conversion, JSON conversion, filtering, or editing). Batches are processed sequentially from \texttt{common/Dataset}.
+  \item \texttt{PipelineRunner\_V2} generates a unique SQL \texttt{runId} via \texttt{MetadataDAO.java} and inserts batch metadata before execution.
 \end{itemize}
 
 \subsubsection{Transform}
 \begin{itemize}
-  \item \textbf{Parsing:} The master regex ,i.e, \texttt{LogParser.java} regex validates and extracts the 8 core fields line-by-line.
-  \item \textbf{Cleaning \& Tracking:} Hyphens (\texttt{-}) in bytes are safely converted to \texttt{0}. Malformed records dynamically increment a tracking counter and are excluded from calculations.
+  \item \textbf{Parsing:} The shared master regex in \texttt{LogParser.java} (and Hive/Pig UDFs) validates and extracts the 8 core fields line-by-line.
+  \item \textbf{Cleaning \& Tracking:} Hyphens (\texttt{-}) in bytes are safely converted to \texttt{0}. Malformed records increment counters during ingestion and are recorded in \texttt{run\_metadata}.
   \item \textbf{Query Aggregation:} The engine executes grouping and arithmetic logic (e.g., counting requests, summing bytes, distinct hosts).
 \end{itemize}
 
 \subsubsection{Load}
 \begin{itemize}
   \item \textbf{Result Retrieval:} The three mandatory queries are executed on the structured data within the chosen backend.
-  \item \textbf{Database Insertion:} Structured results are persisted directly to PostgreSQL via Data Access Objects .
-  \item \textbf{Finalization:} Run metadata (runtime, malformed count, batch statistics) is inserted into the \texttt{run\_metadata} table.
+  \item \textbf{Database Insertion:} Structured results are persisted directly to PostgreSQL via Data Access Objects.
+  \item \textbf{Finalization:} Run, batch, and query metadata (runtime, record counts, malformed counts) are updated in \texttt{run\_metadata}, \texttt{batch\_metadata}, and \texttt{query\_metadata}.
 \end{itemize}
 
 \subsection{ETL Flow Diagram}
@@ -749,61 +771,142 @@ The parsing rules, cleaning rules, field definitions, query definitions, and out
 
 Each pipeline executes the same three analytical queries using a different processing paradigm. All four implement equivalent semantics: the same parsing rules, cleaning rules, filtering conditions, grouping logic, and aggregation definitions.
 
-\subsection{MapReduce}
 \begin{mrbox}
 \textbf{Paradigm:} Low-level, programmer-controlled parallel computation on HDFS.
 
-\textbf{Execution Model:} 
-\begin{itemize}
-  \item \textbf{Mapper:} Reads raw HDFS splits and applies \texttt{LogParser.java}. Valid records emit composite \texttt{Text} keys (e.g., date \& hour) and values (e.g., status \& host). It tracks data quality dynamically using Hadoop Counters (\texttt{MALFORMED} vs \texttt{VALID\_RECORDS}).
-  \item \textbf{Reducer:} Aggregates grouped keys iteratively. For example, \texttt{HourlyErrorMR} loops through values to count total requests, isolate errors (status 400--599), and uses a Java \texttt{HashSet} for distinct host tracking before calculating the final error rate.
-  \item \textbf{Driver:} Configures the job, triggers execution, reads the final HDFS \texttt{part-*} output files sequentially using a \texttt{BufferedReader}, and commits the aggregated results to PostgreSQL via DAOs (e.g., \texttt{Q3DAO.saveResult()}) before cleaning up the temporary HDFS directory.
-\end{itemize}
+\textbf{Execution model:} Custom Mapper and Reducer classes. The Mapper applies the master regex to each log line and emits typed key--value pairs. The Reducer aggregates values per key (e.g., summing bytes, counting requests, collecting distinct hosts).
+
+\textbf{Characteristics:} Fine-grained control over the map phase, shuffle/sort, and reduce phase. Hadoop's \texttt{InputSplit} mechanism naturally partitions data into processing chunks that correspond to logical batches.
+
+\textbf{Query implementation:} Each of the three queries is a separate MapReduce job. Jobs are chained by the orchestrator, and results are loaded to SQL at the end of each chain.
 \end{mrbox}
+
+\begin{figure}[H]
+\centering
+\resizebox{0.9\textwidth}{!}{
+\begin{tikzpicture}[
+    node distance = 0.6cm and 0.6cm,
+    box/.style = {rectangle, rounded corners=3pt, draw=PrimaryBlue, thick, fill=PrimaryBlue!10, minimum width=2.2cm, minimum height=0.8cm, align=center, font=\footnotesize\bfseries},
+    db/.style = {rectangle, rounded corners=3pt, draw=SuccessGreen, thick, fill=SuccessGreen!10, minimum width=2.2cm, minimum height=0.8cm, align=center, font=\footnotesize\bfseries},
+    arr/.style = {-{Stealth[length=6pt]}, thick, color=MidGray}
+]
+\node[box] (raw) {Raw Log\\(.txt)};
+\node[box, right=of raw] (ingest) {Mapper\\(DataIngestionMR)};
+\node[box, right=of ingest] (tsv) {Parsed TSV\\(HDFS)};
+\node[box, right=of tsv] (queries) {MR Jobs\\(Q1, Q2, Q3)};
+\node[db, right=of queries] (sql) {PostgreSQL};
+
+\draw[arr] (raw) -- (ingest);
+\draw[arr] (ingest) -- (tsv);
+\draw[arr] (tsv) -- (queries);
+\draw[arr] (queries) -- (sql);
+\end{tikzpicture}
+}
+\caption{MapReduce Pipeline Architecture}
+\end{figure}
 
 \vspace{5pt}
 
-\subsection{MongoDB}
 \begin{mongobox}
 \textbf{Paradigm:} Document-oriented NoSQL with a declarative aggregation framework.
 
-\textbf{Execution Model:}
-\begin{itemize}
-  \item \textbf{Ingestion:} The driver uses a \texttt{BufferedReader} to process the local file line-by-line via \texttt{LogParser.java}. Valid lines are converted into BSON \texttt{Document} objects and loaded into the database using an efficient \texttt{collection.insertMany()} bulk operation.
-  \item \textbf{Aggregation:} Queries are executed via the MongoDB Java Driver's declarative aggregation pipeline (\texttt{collection.aggregate()}). For example, \texttt{Q1Mongo} uses \texttt{Aggregates.group()} combined with \texttt{Accumulators.sum()} to compute request counts and total bytes directly within the database engine.
-  \item \textbf{Result Extraction:} An \texttt{AggregateIterable<Document>} cursor iterates over the computed BSON outputs, extracts the metrics, and delegates permanent storage to PostgreSQL via DAOs (e.g., \texttt{Q1DAO.saveResult()}).
-\end{itemize}
+\textbf{Execution model:} Parsed log records are inserted as BSON documents into a collection. Queries are expressed using the MongoDB Aggregation Pipeline: \texttt{\$match} for filtering, \texttt{\$group} for aggregation, \texttt{\$sort} and \texttt{\$limit} for top-$N$ ranking.
+
+\textbf{Characteristics:} Schema-flexible; easy to express the three queries in a concise, declarative style. Data is inserted in configurable-size chunks (batches) tracked by batch ID.
 \end{mongobox}
+
+\begin{figure}[H]
+\centering
+\resizebox{0.9\textwidth}{!}{
+\begin{tikzpicture}[
+    node distance = 0.6cm and 0.6cm,
+    box/.style = {rectangle, rounded corners=3pt, draw=SuccessGreen!80!black, thick, fill=SuccessGreen!10, minimum width=2.2cm, minimum height=0.8cm, align=center, font=\footnotesize\bfseries},
+    db/.style = {rectangle, rounded corners=3pt, draw=SuccessGreen, thick, fill=SuccessGreen!10, minimum width=2.2cm, minimum height=0.8cm, align=center, font=\footnotesize\bfseries},
+    arr/.style = {-{Stealth[length=6pt]}, thick, color=MidGray}
+]
+\node[box] (raw) {Raw Log\\(.txt)};
+\node[box, right=of raw] (ingest) {Native Java\\Parser};
+\node[box, right=of ingest] (bson) {MongoDB BSON\\(raw\_logs)};
+\node[box, right=of bson] (queries) {Aggregation Pipeline\\(\$group, \$project)};
+\node[db, right=of queries] (sql) {PostgreSQL};
+
+\draw[arr] (raw) -- (ingest);
+\draw[arr] (ingest) -- (bson);
+\draw[arr] (bson) -- (queries);
+\draw[arr] (queries) -- (sql);
+\end{tikzpicture}
+}
+\caption{MongoDB Pipeline Architecture}
+\end{figure}
 
 \vspace{5pt}
 
-\subsection{Hive}
 \begin{hivebox}
 \textbf{Paradigm:} SQL-like query language (HiveQL) over Hadoop.
 
-\textbf{Execution Model:} 
-\textit{[To be updated based on Hive implementation]}
-\begin{itemize}
-  \item \textbf{Ingestion:} \dots
-  \item \textbf{Aggregation:} \dots
-  \item \textbf{Result Extraction:} \dots
-\end{itemize}
+\textbf{Execution model:} The log file is loaded into an external Hive table backed by the raw text. Queries are written as standard \texttt{SELECT ... GROUP BY ...} HiveQL statements. Hive compiles these internally into MapReduce or Tez jobs.
+
+\textbf{Characteristics:} The three mandatory queries map almost directly to SQL, making Hive the most concise implementation. Partitioning or chunk-based loading is used to emulate batching.
 \end{hivebox}
+
+\begin{figure}[H]
+\centering
+\resizebox{0.9\textwidth}{!}{
+\begin{tikzpicture}[
+    node distance = 0.6cm and 0.6cm,
+    box/.style = {rectangle, rounded corners=3pt, draw=AccentOrange, thick, fill=AccentOrange!10, minimum width=2.2cm, minimum height=0.8cm, align=center, font=\footnotesize\bfseries},
+    db/.style = {rectangle, rounded corners=3pt, draw=SuccessGreen, thick, fill=SuccessGreen!10, minimum width=2.2cm, minimum height=0.8cm, align=center, font=\footnotesize\bfseries},
+    arr/.style = {-{Stealth[length=6pt]}, thick, color=MidGray}
+]
+\node[box] (raw) {Raw Log\\(.txt)};
+\node[box, right=of raw] (ingest) {Hive Ingestion\\(Hive UDF)};
+\node[box, right=of ingest] (tbl) {Hive External\\Table};
+\node[box, right=of tbl] (queries) {HiveQL\\Analytics};
+\node[db, right=of queries] (sql) {PostgreSQL};
+
+\draw[arr] (raw) -- (ingest);
+\draw[arr] (ingest) -- (tbl);
+\draw[arr] (tbl) -- (queries);
+\draw[arr] (queries) -- (sql);
+\end{tikzpicture}
+}
+\caption{Hive Pipeline Architecture}
+\end{figure}
 
 \vspace{5pt}
 
-\subsection{Pig}
 \begin{pigbox}
 \textbf{Paradigm:} Dataflow scripting language (Pig Latin) that compiles to MapReduce.
 
-\textbf{Execution Model:} 
-\textit{[To be updated based on Pig implementation]}
-\begin{itemize}
-  \item \textbf{Ingestion:} \dots
-  \item \textbf{Aggregation:} \dots
-  \item \textbf{Result Extraction:} \dots
-\end{itemize}
+\textbf{Execution model:} A Pig Latin script loads the data, applies a custom UDF or regex-based \texttt{LOAD} function for parsing, then uses \texttt{FILTER}, \texttt{GROUP}, and \texttt{FOREACH ... GENERATE} to compute the required aggregations.
+
+\textbf{Characteristics:} Step-by-step, explicit transformation pipeline. Each data transformation is visible as a named Pig relation, making the logic easy to audit and debug.
 \end{pigbox}
+
+\begin{figure}[H]
+\centering
+\resizebox{0.9\textwidth}{!}{
+\begin{tikzpicture}[
+    node distance = 0.6cm and 0.6cm,
+    box/.style = {rectangle, rounded corners=3pt, draw=AccentCyan, thick, fill=AccentCyan!10, minimum width=2.2cm, minimum height=0.8cm, align=center, font=\footnotesize\bfseries},
+    db/.style = {rectangle, rounded corners=3pt, draw=SuccessGreen, thick, fill=SuccessGreen!10, minimum width=2.2cm, minimum height=0.8cm, align=center, font=\footnotesize\bfseries},
+    arr/.style = {-{Stealth[length=6pt]}, thick, color=MidGray}
+]
+\node[box] (raw) {Raw Log\\(.txt)};
+\node[box, right=of raw] (ingest) {ingest.pig\\(Pig UDF)};
+\node[box, right=of ingest] (tsv) {Parsed TSV\\(HDFS)};
+\node[box, right=of tsv] (queries) {Pig Latin\\Analytics};
+\node[db, right=of queries] (sql) {PostgreSQL};
+
+\draw[arr] (raw) -- (ingest);
+\draw[arr] (ingest) -- (tsv);
+\draw[arr] (tsv) -- (queries);
+\draw[arr] (queries) -- (sql);
+\end{tikzpicture}
+}
+\caption{Pig Pipeline Architecture}
+\end{figure}
+
 
 % ══════════════════════════════════════════════════════════════════════════════
 %  SECTION 6 — RELATIONAL DATABASE SCHEMA
@@ -812,8 +915,8 @@ Each pipeline executes the same three analytical queries using a different proce
 
 \subsection{Design Rationale}
 
-The database employs a fully normalized, Third Normal Form (3NF) relational hierarchy, dividing metadata into three distinct tiers: Pipeline Runs (\texttt{run\_metadata}), Batch Processing (\texttt{batch\_metadata}), and Query Performance (\texttt{query\_metadata}). The schema utilizes a Composite Primary Key (\texttt{run\_id, batch\_no}) for batches to prevent artificial surrogate keys, thereby eliminating costly \texttt{JOIN} operations when analyzing batch-level query trends. Three separate result tables---one per mandatory query---hold the aggregated data outputs, referencing the overall \texttt{run\_id}.
-
+The schema separates run-level metadata from query results. One metadata table stores information common to all queries (pipeline name, runtime, batch info). Three result tables---one per mandatory query---hold the aggregated outputs and reference the metadata table via \texttt{run\_id} (foreign key). This design allows any run's results to be retrieved, filtered by pipeline or batch, and compared against other runs.
+\newpage
 \subsection{Metadata Table: \texttt{run\_metadata}}
 
 \begin{schematable}
@@ -821,32 +924,32 @@ The database employs a fully normalized, Third Normal Form (3NF) relational hier
 \toprule
 \textnormal{\textbf{Column}} & \textbf{Type} & \textbf{Description} \\
 \midrule
-run\_id                 & SERIAL PK    & Auto-incremented unique identifier for the entire pipeline run \\
-pipeline\_name          & VARCHAR(50)  & Execution engine (e.g., \texttt{mapreduce}, \texttt{mongodb}) \\
-dataset\_name           & VARCHAR(255) & The name or path of the selected dataset \\
-avg\_batch\_size        & DOUBLE       & Calculated average batch size across the dataset \\
-total\_runtime          & DOUBLE       & Total wall-clock execution time for all batches \\
-total\_malformed\_record\_count & BIGINT & Aggregate sum of logs that failed regex parsing \\
-total\_record\_count    & BIGINT       & Aggregate sum of all logs processed \\
-execution\_timestamp    & TIMESTAMP    & UTC datetime when the run was recorded \\
+run\_id                       & SERIAL PK    & Auto-incremented unique identifier for each run \\
+pipeline\_name                & VARCHAR(50)  & One of: \texttt{mapreduce}, \texttt{mongodb}, \texttt{hive}, \texttt{pig} \\
+dataset\_name                 & VARCHAR(255) & Name of the dataset folder processed \\
+avg\_batch\_size              & DOUBLE PRECISION & Average number of records per batch \\
+total\_runtime                & DOUBLE PRECISION & Wall-clock time in seconds (ETL only) \\
+total\_malformed\_record\_count & BIGINT     & Total number of log lines that failed regex parsing \\
+total\_record\_count          & BIGINT       & Total number of records processed \\
+execution\_timestamp          & TIMESTAMP    & UTC datetime when the run was recorded \\
 \bottomrule
 \end{tabularx}
 \end{schematable}
 
-\subsection{Batch Table: \texttt{batch\_metadata}}
+\subsection{Batch Metadata Table: \texttt{batch\_metadata}}
 
-Stores performance and execution data strictly for individual batch chunks processed during a pipeline run.
+Stores per-batch metrics for a given run.
 
 \begin{schematable}
 \begin{tabularx}{\linewidth}{@{} >{\ttfamily\small}l >{\small}l X @{}}
 \toprule
 \textnormal{\textbf{Column}} & \textbf{Type} & \textbf{Description} \\
 \midrule
-run\_id                 & INTEGER FK & References \texttt{run\_metadata.run\_id} (Part of Composite PK) \\
-batch\_no               & INTEGER    & Sequential batch identifier (e.g., 1, 2, 3) (Part of Composite PK) \\
-record\_count           & BIGINT     & Total records processed in this specific batch \\
-malformed\_record\_count & BIGINT     & Number of malformed records found in this batch \\
-batch\_runtime          & DOUBLE     & Wall-clock execution time for this specific batch \\
+run\_id                 & INTEGER FK & References \texttt{run\_metadata.run\_id} \\
+batch\_no               & INTEGER    & Sequential batch identifier \\
+record\_count           & BIGINT     & Number of records in this batch \\
+malformed\_record\_count & BIGINT     & Number of malformed records in this batch \\
+batch\_runtime          & DOUBLE PRECISION & Runtime for processing this batch (seconds) \\
 \bottomrule
 \end{tabularx}
 \end{schematable}
@@ -885,7 +988,7 @@ resource\_path     & TEXT       & Requested URL path \\
 request\_count     & BIGINT     & Number of times this resource was requested \\
 total\_bytes       & BIGINT     & Total bytes served for this resource \\
 distinct\_host\_count & BIGINT  & Number of unique hosts requesting this resource \\
-hosts\_list        & TEXT       & Comma-separated list of host IP addresses \\
+hosts\_list        & TEXT       & Comma-separated list of unique hosts \\
 \bottomrule
 \end{tabularx}
 \end{schematable}
@@ -907,68 +1010,32 @@ error\_request\_count  & BIGINT     & Requests with status code 400--599 \\
 total\_request\_count  & BIGINT     & All requests in this date--hour slot \\
 error\_rate           & FLOAT      & \texttt{error\_request\_count / total\_request\_count} \\
 distinct\_error\_hosts & BIGINT     & Unique hosts generating error responses \\
-hosts_list           & TEXT       & Comma-separated list of host IP addresses \\
+hosts\_list           & TEXT       & Comma-separated list of unique error hosts \\
 \bottomrule
 \end{tabularx}
 \end{schematable}
 
-\subsection{Query Timing Table: \texttt{query\_metadata}}
+\subsection{Query Performance Table: \texttt{query\_metadata}}
 
-Stores the individual execution times for each analytical query within a specific batch, enabling granular performance analysis. By referencing the composite key \texttt{(run\_id, batch\_no)}, it completely negates the need for \texttt{JOIN} statements when performing batch-wise trend analysis.
+Stores runtime metrics for each query executed within a batch.
 
 \begin{schematable}
 \begin{tabularx}{\linewidth}{@{} >{\ttfamily\small}l >{\small}l X @{}}
 \toprule
 \textnormal{\textbf{Column}} & \textbf{Type} & \textbf{Description} \\
 \midrule
-query\_meta\_id      & SERIAL PK  & Unique identifier for the performance entry \\
-run\_id              & INTEGER FK & Composite FK reference to \texttt{batch\_metadata} \\
-batch\_no            & INTEGER FK & Composite FK reference to \texttt{batch\_metadata} \\
-query\_number        & INTEGER    & The query being timed (1, 2, or 3) \\
-query\_runtime       & DOUBLE     & Precise execution time in milliseconds \\
+query\_meta\_id  & SERIAL PK  & Row identifier \\
+run\_id         & INTEGER FK & References \texttt{batch\_metadata.run\_id} \\
+batch\_no       & INTEGER FK & References \texttt{batch\_metadata.batch\_no} \\
+query\_number   & INTEGER    & The query executed (1, 2, or 3) \\
+query\_runtime  & DOUBLE PRECISION & Runtime for this specific query \\
 \bottomrule
 \end{tabularx}
 \end{schematable}
 
-% ══════════════════════════════════════════════════════════════════════════════
-%  SECTION 7 — ADVANCED ANALYTICS MODULE
-% ══════════════════════════════════════════════════════════════════════════════
-\section{Advanced Analytics Module}
-
-To deeply understand the performance characteristics, data integrity, and scalability of the big data pipelines, a dedicated set of Java-based analyzers was implemented. These analyzers run automatically upon pipeline completion, fetching metrics from the relational database and generating visual graphs using \texttt{JFreeChart}.
-
-\subsection{Data Quality Analyzer}
-The \texttt{DataQualityAnalyzer} monitors the integrity of the parsing phase. It aggregates the \texttt{record\_count} and \texttt{malformed\_record\_count} from the \texttt{batch\_metadata} table to calculate the overall data parsing success rate. A pie chart is generated to visually contrast successfully parsed log entries against malformed entries, allowing administrators to instantly identify format drift or corruption in raw logs.
-
-\vspace{5cm} % Placeholder for graph
-
-\subsection{Pipeline Comparison Analyzer}
-The \texttt{PipelineComparisonAnalyzer} focuses on macroscopic performance. It queries the \texttt{run\_metadata} table to compare the \texttt{total\_runtime} of the current pipeline execution against previous executions using different engines (e.g., MapReduce vs. MongoDB vs. Hive) on the same base dataset. This enables empirical conclusions about which processing engine performs best for overall batch execution.
-
-\vspace{5cm} % Placeholder for graph
-
-\subsection{Query Timing Analyzer}
-The \texttt{QueryTimingAnalyzer} provides microscopic performance insights into both sequential batch execution and internal query latency. It generates three distinct visualizations:
-\begin{itemize}
-    \item \textbf{Internal Query Timings:} A chart detailing the execution time of Query 1, Query 2, and Query 3 for the current run, highlighting which analytic operation is the most computationally expensive.
-    \item \textbf{Sequential Batch Trends:} A line graph plotting runtime across sequential dataset chunks (batches), which is critical for identifying memory leaks, disk I/O bottlenecks, or JVM garbage collection pauses that worsen over time.
-    \item \textbf{Cross-Pipeline Query Timings:} A comparative chart that evaluates the runtime of specific queries across different processing engines, identifying if an engine excels at aggregation but struggles with sorting.
-\end{itemize}
-
-\vspace{5cm} % Placeholder for graph
-
-\subsection{Batch Size Impact Analyzer}
-The \texttt{BatchSizeImpactAnalyzer} is a highly advanced scalability evaluator. It groups historical pipeline executions by the target batch size configured by the user (e.g., chunks of 500 lines vs. 10,000 lines). By analyzing this tradeoff, it generates three critical visualizations:
-\begin{itemize}
-    \item \textbf{Total Runtime Impact (Line Chart):} Demonstrates the overhead penalty of initializing the processing engine too many times on very small batches.
-    \item \textbf{Throughput Scalability (Bar Chart):} Calculates records processed per second ($Total Records / Total Runtime$) to find the optimal batch size configuration for peak system efficiency.
-    \item \textbf{Average Batch Latency (Line Chart):} Shows the linear or non-linear scaling of time required to process an individual chunk as its size increases.
-\end{itemize}
-
-\vspace{5cm} % Placeholder for graph
 
 % ══════════════════════════════════════════════════════════════════════════════
-%  SECTION 8 — EQUIVALENCE ACROSS PIPELINES
+%  SECTION 7 — EQUIVALENCE ACROSS PIPELINES
 % ══════════════════════════════════════════════════════════════════════════════
 \section{Ensuring Equivalence Across Pipelines}
 
@@ -987,7 +1054,7 @@ To make the cross-pipeline comparison fair and meaningful, the following invaria
 \end{enumerate}
 
 % ══════════════════════════════════════════════════════════════════════════════
-%  SECTION 9 — DIAGRAM INDEX
+%  SECTION 8 — DIAGRAM INDEX
 % ══════════════════════════════════════════════════════════════════════════════
 \section{Diagram Index}
 
@@ -999,53 +1066,13 @@ To make the cross-pipeline comparison fair and meaningful, the following invaria
   \textcolor{white}{\textbf{Figure}} & \textcolor{white}{\textbf{Section}} & \textcolor{white}{\textbf{Description}} \\
 \midrule
 \rowcolor{RowAlt}\ref{fig:arch}  & 1 & System Architecture --- UI through to Reporting Module \\
+\ref{fig:batching_flow} & 5 & Batch Processing --- Input split into $k$ equal batches \\
 \ref{fig:parse} & 2 & Parsing Flow --- Raw line to validated structured record \\
-\rowcolor{RowAlt}\ref{fig:etl}   & 3 & ETL Workflow --- Extract, Transform, Load \\
-\ref{fig:batch} & 5 & Batch Processing --- Input split into $k$ equal batches \\
+\rowcolor{RowAlt}\ref{fig:refined_etl}   & 3 & ETL Workflow --- Extract, Transform, Load \\
 \arrayrulecolor{PrimaryBlue!30}\bottomrule
 \end{tabular}
 \end{center}
 
-% ══════════════════════════════════════════════════════════════════════════════
-%  SECTION 9 — PHASE 1 STATUS
-% ══════════════════════════════════════════════════════════════════════════════
-\section{Phase 1 Prototype Status}
 
-At the time of this Phase 1 review, the following components are complete or in active development:
-
-\begin{center}
-\renewcommand{\arraystretch}{1.4}
-\begin{tabular}{@{} l c c @{}}
-\arrayrulecolor{PrimaryBlue!30}\toprule
-\rowcolor{PrimaryBlue}
-  \textcolor{white}{\textbf{Component}} & \textcolor{white}{\textbf{Status}} & \textcolor{white}{\textbf{Applies to}} \\
-\midrule
-\rowcolor{SuccessGreen!8}UI (pipeline selector, dataset path, batch size) & \textcolor{SuccessGreen}{\ding{52}\;Done} & All \\
-\rowcolor{SuccessGreen!8}Master regex parser + malformed counter           & \textcolor{SuccessGreen}{\ding{52}\;Done} & All \\
-\rowcolor{SuccessGreen!8}MapReduce ETL (Q1, Q2, Q3)                        & \textcolor{SuccessGreen}{\ding{52}\;Done} & MapReduce \\
-\rowcolor{SuccessGreen!8}MongoDB ETL (Q1, Q2, Q3)                          & \textcolor{SuccessGreen}{\ding{52}\;Done} & MongoDB \\
-\rowcolor{AccentOrange!10}Hive ETL                                          & \textcolor{AccentOrange}{\ding{115}\;In Progress} & Hive \\
-\rowcolor{AccentOrange!10}Pig ETL                                           & \textcolor{AccentOrange}{\ding{115}\;In Progress} & Pig \\
-\rowcolor{SuccessGreen!8}Relational database schema and load scripts        & \textcolor{SuccessGreen}{\ding{52}\;Done} & All \\
-\rowcolor{SuccessGreen!8}Reporting module                                   & \textcolor{SuccessGreen}{\ding{52}\;Done} & All \\
-\arrayrulecolor{PrimaryBlue!30}\bottomrule
-\end{tabular}
-\end{center}
-
-Phase 2 will complete the Hive and Pig pipelines, execute comparative experiments across all four backends using the same batch size, and document runtime observations, implementation difficulty, and correctness comparisons.
-
-\vspace{1.5cm}
-\begin{center}
-\begin{tcolorbox}[enhanced, arc=8pt, boxrule=0pt,
-  colback=PrimaryBlue, colframe=PrimaryBlue,
-  width=10cm, halign=center,
-  drop shadow={fill=black!20, opacity=0.4}]
-  \centering
-  {\color{AccentCyan}\rule{6cm}{0.6pt}}\\[6pt]
-  {\small\color{white}\itshape End of Phase 1 Report}\\[3pt]
-  {\small\color{AccentCyan!80}\bfseries DAS 839 \;\textcolor{white}{||}\; NoSQL Systems}\\[6pt]
-  {\color{AccentCyan}\rule{6cm}{0.6pt}}
-\end{tcolorbox}
-\end{center}
 
 \end{document}
